@@ -164,25 +164,25 @@ export const Main: React.FC<MainPageProps> = ({promoMovieName, promoMovieGenre, 
           </ul>
 
           <div className='catalog__films-list'>
-            <MovieCard movieName={'Fantastic Beasts: The Crimes of Grindelwald'}/>
-            <MovieCard movieName={'Bohemian Rhapsody'}/>
-            <MovieCard movieName={'Macbeth'}/>
-            <MovieCard movieName={'Aviator'}/>
-            <MovieCard movieName={'We need to talk about Kevin'}/>
-            <MovieCard movieName={'What We Do in the Shadows'}/>
-            <MovieCard movieName={'Revenant'}/>
-            <MovieCard movieName={'Johnny English'}/>
-            <MovieCard movieName={'Shutter Island'}/>
-            <MovieCard movieName={'Pulp Fiction'}/>
-            <MovieCard movieName={'No Country for Old Men'}/>
-            <MovieCard movieName={'Snatch'}/>
-            <MovieCard movieName={'Moonrise Kingdom'}/>
-            <MovieCard movieName={'Seven Years in Tibet'}/>
-            <MovieCard movieName={'Midnight Special'}/>
-            <MovieCard movieName={'War of the Worlds'}/>
-            <MovieCard movieName={'Orlando'}/>
-            <MovieCard movieName={'Mindhunter'}/>
-            <MovieCard movieName={'Midnight Special'}/>
+            {['Fantastic Beasts: The Crimes of Grindelwald', 
+              'Bohemian Rhapsody',
+              'Macbeth',
+              'We need to talk about Kevin',
+              'What We Do in the Shadows',
+              'Revenant',
+              'Johnny English',
+              'Shutter Island',
+              'Pulp Fiction',
+              'Moonrise Kingdom',
+              'No Country for Old Men',
+              'Snatch',
+              'Seven Years in Tibet',
+              'Midnight Special',
+              'War of the Worlds',
+              'Orlando',
+              'Mindhunter',
+              'Midnight Special']
+            .map(name => <MovieCard movieName={name} />)}
           </div>
 
           <div className='catalog__more'>
