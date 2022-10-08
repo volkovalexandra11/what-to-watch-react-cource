@@ -2,14 +2,33 @@ import React from 'react';
 
 import {MovieCard} from '../components/card/card';
 
-type MainPageProps = {
+type Props = {
   promoMovieName: string;
   promoMovieGenre: string;
   promoMovieCreationDate: string;
 }
 
-export const Main: React.FC<MainPageProps> = ({promoMovieName, promoMovieGenre, promoMovieCreationDate}) =>
-  (
+const Main: React.FC<Props> = (props) => {
+  const {promoMovieName, promoMovieGenre, promoMovieCreationDate} = props;
+  const movieNames = ['Fantastic Beasts: The Crimes of Grindelwald',
+    'Bohemian Rhapsody',
+    'Macbeth',
+    'We need to talk about Kevin',
+    'What We Do in the Shadows',
+    'Revenant',
+    'Johnny English',
+    'Shutter Island',
+    'Pulp Fiction',
+    'Moonrise Kingdom',
+    'No Country for Old Men',
+    'Snatch',
+    'Seven Years in Tibet',
+    'Midnight Special',
+    'War of the Worlds',
+    'Orlando',
+    'Mindhunter',
+    'Midnight Special'];
+  return (
     <>
       <div className='visually-hidden'>
         <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
@@ -164,25 +183,8 @@ export const Main: React.FC<MainPageProps> = ({promoMovieName, promoMovieGenre, 
           </ul>
 
           <div className='catalog__films-list'>
-            {['Fantastic Beasts: The Crimes of Grindelwald', 
-              'Bohemian Rhapsody',
-              'Macbeth',
-              'We need to talk about Kevin',
-              'What We Do in the Shadows',
-              'Revenant',
-              'Johnny English',
-              'Shutter Island',
-              'Pulp Fiction',
-              'Moonrise Kingdom',
-              'No Country for Old Men',
-              'Snatch',
-              'Seven Years in Tibet',
-              'Midnight Special',
-              'War of the Worlds',
-              'Orlando',
-              'Mindhunter',
-              'Midnight Special']
-            .map(name => <MovieCard movieName={name} />)}
+            {/* eslint-disable-next-line react/jsx-key */}
+            {movieNames.map((name) => <MovieCard movieName={name} />)}
           </div>
 
           <div className='catalog__more'>
@@ -206,3 +208,6 @@ export const Main: React.FC<MainPageProps> = ({promoMovieName, promoMovieGenre, 
       </div>
     </>
   );
+};
+
+export default Main;

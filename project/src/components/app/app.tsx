@@ -1,4 +1,4 @@
-import { Main } from '../../pages/main';
+import Main from '../../pages/main';
 
 function App(): JSX.Element {
   return (
@@ -6,7 +6,8 @@ function App(): JSX.Element {
       promoMovieName={'The Grand Budapest Hotel'}
       promoMovieCreationDate={'2014'}
       promoMovieGenre={'Drama'}
-    />);
+    />
+  );
 }
 
 export default App;
