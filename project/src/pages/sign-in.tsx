@@ -49,9 +49,8 @@ export const SignIn: React.FC = () =>
             </g>
           </symbol>
         </svg>
-
       </div>
-      <div className="user-page">;
+      <div className="user-page">
         <header className='page-header user-page__head'>
           <div className='logo'>
             <a href='main.html' className='logo__link'>
@@ -62,7 +61,7 @@ export const SignIn: React.FC = () =>
           </div>
 
           <h1 className='page-title user-page__title'>Sign in</h1>
-        </header>;
+        </header>
 
         <div className='sign-in user-page__content'>
           <form action='#' className='sign-in__form'>
@@ -82,7 +81,7 @@ export const SignIn: React.FC = () =>
               <button className='sign-in__btn' type='submit'>Sign in</button>
             </div>
           </form>
-        </div>;
+        </div>
 
         <footer className='page-footer'>
           <div className='logo'>
@@ -96,6 +95,7 @@ export const SignIn: React.FC = () =>
           <div className='copyright'>
             <p>© 2019 What to watch Ltd.</p>
           </div>
-        </footer>;
+        </footer>
       </div>
-    </>);
+    </>
+  );
