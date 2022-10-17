@@ -10,8 +10,6 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import {TMovie} from '../../types/TMovie';
 
-
-
 function App(): JSX.Element {
   const movie: TMovie = {
     name: 'The Grand Budapest hotel',
