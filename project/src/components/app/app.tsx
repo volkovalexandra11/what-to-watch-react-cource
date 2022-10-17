@@ -1,6 +1,5 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Main from '../../pages/main';
-import Layout from '../layout/layout';
 import SignIn from '../../pages/sign-in';
 import MyList from '../../pages/my-list';
 import Movie from '../../pages/movie';
@@ -8,7 +7,9 @@ import AddReview from '../../pages/add-review';
 import Player from '../../pages/player';
 import PageNotFound from '../../pages/not-found';
 import PrivateRoute from '../private-route/private-route';
+import Layout from '../layout/layout';
 import {TMovie} from '../../types/TMovie';
+
 
 
 function App(): JSX.Element {
@@ -16,7 +17,7 @@ function App(): JSX.Element {
     name: 'The Grand Budapest hotel',
     genre: 'Drama',
     creationDate: '2014'
-  }
+  };
   return (
     <BrowserRouter>
       <Routes>
