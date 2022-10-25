@@ -1,3 +1,4 @@
+import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Main from '../../pages/main';
 import SignIn from '../../pages/sign-in';
@@ -10,7 +11,15 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import {TMovie} from '../../types/TMovie';
 
-function App(): JSX.Element {
+type Props = {
+  promoMovie: TMovie,
+  moviesList: TMovie[]
+}
+
+
+function App(props: Props): React.FC<Props> {
+  const {promoMovie, moviesList} = props;
+
   const movie: TMovie = {
     name: 'The Grand Budapest hotel',
     genre: 'Drama',
