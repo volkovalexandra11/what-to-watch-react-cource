@@ -1,6 +1,8 @@
-import {MovieDto} from "../types/MovieDto";
+import {TMovie} from "../types/TMovie";
+import {videoLink} from "./videoLink";
+import movie from "../pages/movie";
 
-export const MovieDtos: MovieDto[] = [
+export const movies: TMovie[] = [
   {
     "id": 1,
     "name": "The Grand Budapest Hotel",
@@ -8,8 +10,8 @@ export const MovieDtos: MovieDto[] = [
     "previewImage": "img/the-grand-budapest-hotel.jpg",
     "backgroundImage": "img/the-grand-budapest-hotel-bg.jpg",
     "backgroundColor": "#ffffff",
-    "videoLink": "https://some-link",
-    "previewVideoLink": "https://some-link",
+    "videoLink": videoLink,
+    "previewVideoLink": videoLink,
     "description": "In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.",
     "rating": 8.9,
     "scoresCount": 240,
@@ -29,8 +31,8 @@ export const MovieDtos: MovieDto[] = [
     "previewImage": "img/the-grand-budapest-hotel.jpg",
     "backgroundImage": "img/the-grand-budapest-hotel-bg.jpg",
     "backgroundColor": "#ffffff",
-    "videoLink": "https://some-link",
-    "previewVideoLink": "https://some-link",
+    "videoLink": videoLink,
+    "previewVideoLink": videoLink,
     "description": "In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.",
     "rating": 8.9,
     "scoresCount": 240,
@@ -50,8 +52,8 @@ export const MovieDtos: MovieDto[] = [
     "previewImage": "img/the-grand-budapest-hotel.jpg",
     "backgroundImage": "img/the-grand-budapest-hotel-bg.jpg",
     "backgroundColor": "#ffffff",
-    "videoLink": "https://some-link",
-    "previewVideoLink": "https://some-link",
+    "videoLink": videoLink,
+    "previewVideoLink": videoLink,
     "description": "In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.",
     "rating": 8.9,
     "scoresCount": 240,
@@ -71,8 +73,8 @@ export const MovieDtos: MovieDto[] = [
     "previewImage": "img/the-grand-budapest-hotel.jpg",
     "backgroundImage": "img/the-grand-budapest-hotel-bg.jpg",
     "backgroundColor": "#ffffff",
-    "videoLink": "https://some-link",
-    "previewVideoLink": "https://some-link",
+    "videoLink": videoLink,
+    "previewVideoLink": videoLink,
     "description": "In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.",
     "rating": 8.9,
     "scoresCount": 240,
@@ -92,8 +94,8 @@ export const MovieDtos: MovieDto[] = [
     "previewImage": "img/the-grand-budapest-hotel.jpg",
     "backgroundImage": "img/the-grand-budapest-hotel-bg.jpg",
     "backgroundColor": "#ffffff",
-    "videoLink": "https://some-link",
-    "previewVideoLink": "https://some-link",
+    "videoLink": videoLink,
+    "previewVideoLink": videoLink,
     "description": "In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.",
     "rating": 8.9,
     "scoresCount": 240,
@@ -113,8 +115,8 @@ export const MovieDtos: MovieDto[] = [
     "previewImage": "img/the-grand-budapest-hotel.jpg",
     "backgroundImage": "img/the-grand-budapest-hotel-bg.jpg",
     "backgroundColor": "#ffffff",
-    "videoLink": "https://some-link",
-    "previewVideoLink": "https://some-link",
+    "videoLink": videoLink,
+    "previewVideoLink": videoLink,
     "description": "In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.",
     "rating": 8.9,
     "scoresCount": 240,
@@ -134,8 +136,8 @@ export const MovieDtos: MovieDto[] = [
     "previewImage": "img/the-grand-budapest-hotel.jpg",
     "backgroundImage": "img/the-grand-budapest-hotel-bg.jpg",
     "backgroundColor": "#ffffff",
-    "videoLink": "https://some-link",
-    "previewVideoLink": "https://some-link",
+    "videoLink": videoLink,
+    "previewVideoLink": videoLink,
     "description": "In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.",
     "rating": 8.9,
     "scoresCount": 240,
@@ -155,8 +157,8 @@ export const MovieDtos: MovieDto[] = [
     "previewImage": "img/the-grand-budapest-hotel.jpg",
     "backgroundImage": "img/the-grand-budapest-hotel-bg.jpg",
     "backgroundColor": "#ffffff",
-    "videoLink": "https://some-link",
-    "previewVideoLink": "https://some-link",
+    "videoLink": videoLink,
+    "previewVideoLink": videoLink,
     "description": "In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.",
     "rating": 8.9,
     "scoresCount": 240,
@@ -169,4 +171,8 @@ export const MovieDtos: MovieDto[] = [
     "released": 2014,
     "isFavorite": false
   }
-]
+];
+
+export function getFilmById(id: number): TMovie {
+  return movies.filter(m => m.id === id)[0];
+}

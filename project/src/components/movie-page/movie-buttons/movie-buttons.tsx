@@ -17,7 +17,6 @@ const MovieButtons = () =>
         <span>My list</span>
         <span className="film-card__count">9</span>
       </button>
-      <Link to="add-review.html" className="btn film-card__button">Add review</Link>
     </div>
   );
 

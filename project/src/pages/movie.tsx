@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, useParams} from 'react-router-dom';
 import Footer from '../components/footer/footer';
 import Navigation from '../components/movie-page/navigation/navigation';
 import Rating from '../components/movie-page/rating/rating';
@@ -8,22 +9,26 @@ import MovieButtons from '../components/movie-page/movie-buttons/movie-buttons';
 import Header from '../components/header/header';
 import MovieCatalog from '../components/movie-page/movie-catalog/movie-catalog';
 import Poster from '../components/movie-page/poster/poster';
+import {getFilmById} from "../mocks/films";
 
-const Movie = () =>
-  (
+const Movie = () => {
+  const { movieId } = useParams();
+  const movie = getFilmById(Number(movieId));
+  return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={movie.posterImage} alt={movie.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
           <Header/>
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <MovieMeta movieName='The Grand Budapest hotel' movieGenre='Drama' movieCreationDate='2014'/>
+              <MovieMeta movieName={movie.name} movieGenre={movie.genre} movieCreationDate={movie.released}/>
               <MovieButtons/>
+              <Link to={`/films/${movie?.id}/review`} className="btn film-card__button">Add review</Link>
             </div>
           </div>
         </div>
@@ -38,9 +43,9 @@ const Movie = () =>
                 description='Gustave prides himself on providing first-class service to the hotel`&apos;`s guests, including satisfying the
             sexual needs of the many elderly women who stay there. When one of Gustave`&apos;`s lovers dies mysteriously,
             Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.'
-                director='Wes Anderson'
-                starring='Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other'
-                summary='In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave'
+                director={movie.director}
+                starring={movie.starring.join(' ')}
+                summary={movie.description}
               />
             </div>
           </div>
@@ -52,9 +57,10 @@ const Movie = () =>
           <h2 className="catalog__title">More like this</h2>
           <MovieCatalog/>
         </section>
-        <Footer />
+        <Footer/>
       </div>
     </>
   );
+}
 
 export default Movie;

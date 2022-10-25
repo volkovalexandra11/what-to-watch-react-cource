@@ -20,11 +20,6 @@ type Props = {
 function App(props: Props): React.FC<Props> {
   const {promoMovie, moviesList} = props;
 
-  const movie: TMovie = {
-    name: 'The Grand Budapest hotel',
-    genre: 'Drama',
-    creationDate: '2014'
-  };
   return (
     <BrowserRouter>
       <Routes>
@@ -32,7 +27,7 @@ function App(props: Props): React.FC<Props> {
           <Route
             index
             element={
-              <Main movie={movie}/>
+              <Main promoMovie={promoMovie} moviesList={moviesList}/>
             }
           />
           <Route path='login' element={<SignIn/>}/>
@@ -40,12 +35,12 @@ function App(props: Props): React.FC<Props> {
             path='mylist'
             element={
               <PrivateRoute hasAccess={false}>
-                <MyList/>
+                <MyList moviesList={moviesList.filter(m => m.isFavorite)}/>
               </PrivateRoute>
             }
           />
           <Route path='films/:id' element={<Movie/>}/>
-          <Route path='player/:id' element={<Player/>}/>
+          <Route path='player/:id' element={<Player movie={promoMovie}/>}/>
           <Route
             path='films/:id/review'
             element={

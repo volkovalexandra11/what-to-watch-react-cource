@@ -2,8 +2,8 @@ import React from 'react';
 
 import PromoFilmCard from '../components/main-page/promo-movie-card/promo-movie-card';
 import Footer from '../components/footer/footer';
-import MainPageCatalog from '../components/main-page/main-page-catalog/main-page-catalog';
 import {TMovie} from '../types/TMovie';
+import Catalog from "../components/catalog/catalog";
 
 type Props = {
   promoMovie: TMovie,
@@ -22,7 +22,7 @@ const Main: React.FC<Props> = (props) => {
       />
 
       <div className='page-content'>
-        <MainPageCatalog moviesList={moviesList}/>
+        <Catalog moviesList={moviesList}/>
         <Footer/>
       </div>
     </>
