@@ -7,6 +7,7 @@ import AddReviewForm from "../components/add-review-form/add-review-form";
 const AddReview = () => {
   const {movieId} = useParams();
   const movie = getFilmById(Number(movieId));
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -22,13 +23,13 @@ const AddReview = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to=`/films/${movie?.id}` className="breadcrumbs__link">{movie.name}</Link>
-            </li>
-            <li className="breadcrumbs__item">
-              <a className="breadcrumbs__link">Add review</a>
-            </li>
-          </ul>
-        </nav>
+                <Link to={`/films/${movie?.id}`} className="breadcrumbs__link">{movie.name}</Link>
+              </li>
+              <li className="breadcrumbs__item">
+                <a className="breadcrumbs__link">Add review</a>
+              </li>
+            </ul>
+          </nav>
 
         <ul className="user-block">
           <li className="user-block__item">
@@ -41,7 +42,7 @@ const AddReview = () => {
           </li>
         </ul>
       </header>
-
+      </div>
       <div className="film-card__poster film-card__poster--small">
         <img src={movie.posterImage} alt={movie.name} width="218" height="327"/>
       </div>
