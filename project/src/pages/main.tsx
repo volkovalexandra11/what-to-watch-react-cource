@@ -15,14 +15,10 @@ const Main: React.FC<Props> = (props) => {
 
   return (
     <>
-      <PromoFilmCard
-        promoMovieName={promoMovie.name}
-        promoMovieGenre={promoMovie.genre}
-        promoMovieCreationDate={promoMovie.creationDate}
-      />
+      <PromoFilmCard movie={promoMovie}/>
 
       <div className='page-content'>
-        <Catalog moviesList={moviesList}/>
+        <Catalog movieList={moviesList}/>
         <Footer/>
       </div>
     </>

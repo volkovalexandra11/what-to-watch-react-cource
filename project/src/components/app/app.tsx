@@ -1,4 +1,4 @@
-import React from 'react';
+import {FC} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Main from '../../pages/main';
 import SignIn from '../../pages/sign-in';
@@ -17,8 +17,8 @@ type Props = {
 }
 
 
-function App(props: Props): React.FC<Props> {
-  const {promoMovie, moviesList} = props;
+const App : FC<Props> = (props) => {
+  const { promoMovie, moviesList } = props;
 
   return (
     <BrowserRouter>

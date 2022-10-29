@@ -1,19 +1,16 @@
-import React from 'react';
+import { FC } from 'react';
 import Logo from '../../logo/logo';
+import { TMovie } from '../../../types/TMovie';
 
 type Props = {
-  promoMovieName: string;
-  promoMovieGenre: string;
-  promoMovieCreationDate: string;
+  movie: TMovie
 }
 
-export const PromoFilmCard: React.FC<Props> = (props: Props) => {
-  const {promoMovieName, promoMovieGenre, promoMovieCreationDate} = props;
-
+export const PromoFilmCard: FC<Props> = ({ movie }) => {
   return (
     <section className='film-card'>
       <div className='film-card__bg'>
-        <img src='img/bg-the-grand-budapest-hotel.jpg' alt='The Grand Budapest Hotel'/>
+        <img src={`/img/${movie.posterImage}`} alt={movie.name}/>
       </div>
 
       <h1 className='visually-hidden'>WTW</h1>
@@ -24,7 +21,7 @@ export const PromoFilmCard: React.FC<Props> = (props: Props) => {
         <ul className='user-block'>
           <li className='user-block__item'>
             <div className='user-block__avatar'>
-              <img src='img/avatar.jpg' alt='User avatar' width='63' height='63'/>
+              <img src='/img/avatar.jpg' alt='User avatar' width='63' height='63'/>
             </div>
           </li>
           <li className='user-block__item'>
@@ -36,16 +33,14 @@ export const PromoFilmCard: React.FC<Props> = (props: Props) => {
       <div className='film-card__wrap'>
         <div className='film-card__info'>
           <div className='film-card__poster'>
-            <img src='img/the-grand-budapest-hotel-poster.jpg' alt='The Grand Budapest Hotel poster' width='218'
-              height='327'
-            />
+            <img src={`/img/${movie.posterImage}`} alt={movie.name} width='218' height='327'/>
           </div>
 
           <div className='film-card__desc'>
-            <h2 className='film-card__title'>{promoMovieName}</h2>
+            <h2 className='film-card__title'>{movie.name}</h2>
             <p className='film-card__meta'>
-              <span className='film-card__genre'>{promoMovieGenre}</span>
-              <span className='film-card__year'>{promoMovieCreationDate}</span>
+              <span className='film-card__genre'>{movie.genre}</span>
+              <span className='film-card__year'>{movie.released}</span>
             </p>
 
             <div className='film-card__buttons'>

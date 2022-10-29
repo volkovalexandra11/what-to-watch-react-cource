@@ -1,12 +1,12 @@
 import React from 'react';
-import {MovieCard} from '../main-page/card/card';
-import {TMovie} from "../../types/TMovie";
+import { MovieCard } from '../main-page/card/card';
+import { TMovie } from "../../types/TMovie";
 
 type Props = {
-  moviesList: TMovie[];
+  movieList: TMovie[];
 }
 
-const Catalog: React.FC<Props> = ({moviesList}) => {
+const Catalog: React.FC<Props> = ({movieList}) => {
   return (
     <section className='catalog'>
       <h2 className='catalog__title visually-hidden'>Catalog</h2>
@@ -45,7 +45,7 @@ const Catalog: React.FC<Props> = ({moviesList}) => {
       </ul>
 
       <div className='catalog__films-list'>
-        {moviesList.map((movie, idx) => <MovieCard key={`${idx}_ ${movie.picturePath}`} movieName={movie.name} picPath={movie.picturePath}/>)}
+        {movieList.map((movie, idx) => <MovieCard key={`${idx}_ ${movie.posterImage}`} movie={movie}/>)}
       </div>
 
       <div className='catalog__more'>

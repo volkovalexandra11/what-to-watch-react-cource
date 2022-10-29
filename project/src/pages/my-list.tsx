@@ -30,7 +30,7 @@ const MyList: React.FC<Props> = ({moviesList}) =>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <Catalog moviesList={moviesList}/>
+        <Catalog movieList={moviesList}/>
         </div>
       </section>
 

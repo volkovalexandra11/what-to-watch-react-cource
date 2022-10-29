@@ -1,9 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import Toggler from '../components/player/toggler/toggler';
 import PlayButton from '../components/player/play-button/play-button';
 import FullScreenButton from '../components/player/full-screen-button/full-screen-button';
+import { TMovie } from '../types/TMovie';
 
-const Player = () =>
+type Props = {
+  movie: TMovie
+}
+
+const Player: FC<Props> = ({ movie }) =>
   (
     <div className="player">
       <video src="#" className="player__video" poster="/img/player-poster.jpg"/>
