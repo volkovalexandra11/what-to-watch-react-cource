@@ -1,22 +1,20 @@
 import React from 'react';
+import {TMovie} from '../../../types/TMovie';
 
 type Props = {
-  movieName: string;
-  picPath: string;
+  movie: TMovie,
 }
 
-export const MovieCard: React.FC<Props> = (props) => {
-  const {movieName, picPath} = props;
-
+export const MovieCard: React.FC<Props> = ({ movie }) => {
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">
-        <img src={`img/${picPath}.jpg`}
-          alt={movieName} width="280" height="175"
+        <img src={`img/${movie.posterImage}.jpg`}
+          alt={movie.name} width="280" height="175"
         />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="/">{movieName}</a>
+        <a className="small-film-card__link" href="/">{movie.name}</a>
       </h3>
     </article>
   );

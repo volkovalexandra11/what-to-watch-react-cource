@@ -2,26 +2,23 @@ import React from 'react';
 
 import PromoFilmCard from '../components/main-page/promo-movie-card/promo-movie-card';
 import Footer from '../components/footer/footer';
-import MainPageCatalog from '../components/main-page/main-page-catalog/main-page-catalog';
 import {TMovie} from '../types/TMovie';
+import Catalog from "../components/catalog/catalog";
 
 type Props = {
-  movie: TMovie;
+  promoMovie: TMovie,
+  moviesList: TMovie[]
 }
 
 const Main: React.FC<Props> = (props) => {
-  const {movie} = props;
+  const {promoMovie, moviesList} = props;
 
   return (
     <>
-      <PromoFilmCard
-        promoMovieName={movie.name}
-        promoMovieGenre={movie.genre}
-        promoMovieCreationDate={movie.creationDate}
-      />
+      <PromoFilmCard movie={promoMovie}/>
 
       <div className='page-content'>
-        <MainPageCatalog/>
+        <Catalog movieList={moviesList}/>
         <Footer/>
       </div>
     </>

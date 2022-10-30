@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Main from '../../pages/main';
 import SignIn from '../../pages/sign-in';
@@ -10,12 +11,15 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import {TMovie} from '../../types/TMovie';
 
-function App(): JSX.Element {
-  const movie: TMovie = {
-    name: 'The Grand Budapest hotel',
-    genre: 'Drama',
-    creationDate: '2014'
-  };
+type Props = {
+  promoMovie: TMovie,
+  moviesList: TMovie[]
+}
+
+
+const App : FC<Props> = (props) => {
+  const { promoMovie, moviesList } = props;
+
   return (
     <BrowserRouter>
       <Routes>
@@ -23,7 +27,7 @@ function App(): JSX.Element {
           <Route
             index
             element={
-              <Main movie={movie}/>
+              <Main promoMovie={promoMovie} moviesList={moviesList}/>
             }
           />
           <Route path='login' element={<SignIn/>}/>
@@ -31,12 +35,12 @@ function App(): JSX.Element {
             path='mylist'
             element={
               <PrivateRoute hasAccess={false}>
-                <MyList/>
+                <MyList moviesList={moviesList.filter(m => m.isFavorite)}/>
               </PrivateRoute>
             }
           />
           <Route path='films/:id' element={<Movie/>}/>
-          <Route path='player/:id' element={<Player/>}/>
+          <Route path='player/:id' element={<Player movie={promoMovie}/>}/>
           <Route
             path='films/:id/review'
             element={
