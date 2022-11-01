@@ -12,10 +12,9 @@ import Layout from '../layout/layout';
 import {TMovie} from '../../types/TMovie';
 
 type Props = {
-  promoMovie: TMovie,
-  moviesList: TMovie[]
+  promoMovie: TMovie;
+  moviesList: TMovie[];
 }
-
 
 const App : FC<Props> = (props) => {
   const { promoMovie, moviesList } = props;
@@ -35,7 +34,7 @@ const App : FC<Props> = (props) => {
             path='mylist'
             element={
               <PrivateRoute hasAccess={false}>
-                <MyList moviesList={moviesList.filter(m => m.isFavorite)}/>
+                <MyList moviesList={moviesList.filter((m) => m.isFavorite)}/>
               </PrivateRoute>
             }
           />
@@ -54,6 +53,6 @@ const App : FC<Props> = (props) => {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

@@ -1,14 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import Catalog from '../../catalog/catalog';
+import { TMovie } from '../../../types/TMovie';
 
-const MovieCatalog = () => {
-  const movieNames = ['Fantastic Beasts: The Crimes of Grindelwald',
-    'Bohemian Rhapsody',
-    'Macbeth',
-    'Aviator'];
+type Props = {
+  movieList: TMovie[];
+}
 
+const MovieCatalog : FC<Props> = ({movieList}) => {
   return (
-    <Catalog movieNames={movieNames} />
+    <Catalog movieList={movieList} />
   );
 };
 

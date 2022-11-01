@@ -18,7 +18,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "lint:fix": "eslint --fix . --ext .tsx src"
   },
   "include": [
     "src"

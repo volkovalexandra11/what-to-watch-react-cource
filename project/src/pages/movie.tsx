@@ -9,7 +9,7 @@ import MovieButtons from '../components/movie-page/movie-buttons/movie-buttons';
 import Header from '../components/header/header';
 import MovieCatalog from '../components/movie-page/movie-catalog/movie-catalog';
 import Poster from '../components/movie-page/poster/poster';
-import {getFilmById} from "../mocks/films";
+import {getFilmById} from "../mocks/movies";
 
 const Movie = () => {
   const { movieId } = useParams();

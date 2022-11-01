@@ -2,13 +2,13 @@ import React from 'react';
 import Logo from '../components/logo/logo';
 import Footer from '../components/footer/footer';
 import Catalog from "../components/catalog/catalog";
-import {TMovie} from "../types/TMovie";
+import { TMovie } from "../types/TMovie";
 
 type Props = {
   moviesList: TMovie[]
 }
 
-const MyList: React.FC<Props> = ({moviesList}) =>
+const MyList: React.FC<Props> = ({ moviesList }) =>
   (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -31,7 +31,6 @@ const MyList: React.FC<Props> = ({moviesList}) =>
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <Catalog movieList={moviesList}/>
-        </div>
       </section>
 
       <Footer/>

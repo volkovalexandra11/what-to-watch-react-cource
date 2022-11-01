@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import Logo from '../components/logo/logo';
-import {getFilmById} from "../mocks/films";
+import {getFilmById} from "../mocks/movies";
 import AddReviewForm from "../components/add-review-form/add-review-form";
 
 const AddReview = () => {

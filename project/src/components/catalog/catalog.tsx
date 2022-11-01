@@ -1,12 +1,14 @@
-import React from 'react';
-import { MovieCard } from '../main-page/card/card';
-import { TMovie } from "../../types/TMovie";
+import React, { useState } from 'react';
+import MovieCard from '../main-page/card/card';
+import { TMovie } from '../../types/TMovie';
 
 type Props = {
   movieList: TMovie[];
 }
 
 const Catalog: React.FC<Props> = ({movieList}) => {
+  const [, setActiveFilmCard] = useState<number | null>(null);
+
   return (
     <section className='catalog'>
       <h2 className='catalog__title visually-hidden'>Catalog</h2>
@@ -45,7 +47,10 @@ const Catalog: React.FC<Props> = ({movieList}) => {
       </ul>
 
       <div className='catalog__films-list'>
-        {movieList.map((movie, idx) => <MovieCard key={`${idx}_ ${movie.posterImage}`} movie={movie}/>)}
+        {movieList
+          .map((movie, idx) =>
+            <MovieCard key={`${movie.posterImage}`} movie={movie} onHover={setActiveFilmCard}/>
+          )}
       </div>
 
       <div className='catalog__more'>
