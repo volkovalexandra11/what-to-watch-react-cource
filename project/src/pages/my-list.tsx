@@ -1,11 +1,11 @@
 import React from 'react';
 import Logo from '../components/logo/logo';
 import Footer from '../components/footer/footer';
-import Catalog from "../components/catalog/catalog";
-import {TMovie} from "../types/TMovie";
+import Catalog from '../components/catalog/catalog';
+import {TMovie} from '../types/TMovie';
 
 type Props = {
-  moviesList: TMovie[]
+  moviesList: TMovie[];
 }
 
 const MyList: React.FC<Props> = ({moviesList}) =>
@@ -18,7 +18,7 @@ const MyList: React.FC<Props> = ({moviesList}) =>
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
             </div>
           </li>
           <li className="user-block__item">
@@ -31,7 +31,6 @@ const MyList: React.FC<Props> = ({moviesList}) =>
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <Catalog movieList={moviesList}/>
-        </div>
       </section>
 
       <Footer/>

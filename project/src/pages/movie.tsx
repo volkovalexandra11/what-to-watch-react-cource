@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/footer/footer';
 import Navigation from '../components/movie-page/navigation/navigation';
 import Rating from '../components/movie-page/rating/rating';
@@ -7,13 +7,17 @@ import MovieDescription from '../components/movie-page/movie-description/movie-d
 import MovieMeta from '../components/movie-page/movie-meta/movie-meta';
 import MovieButtons from '../components/movie-page/movie-buttons/movie-buttons';
 import Header from '../components/header/header';
-import MovieCatalog from '../components/movie-page/movie-catalog/movie-catalog';
 import Poster from '../components/movie-page/poster/poster';
-import {getFilmById} from "../mocks/films";
+import Tabs from '../components/tabs/tabs';
+import Catalog from '../components/catalog/catalog';
+import { getFilmById, movies } from '../mocks/movies';
+import { getReviewsByMovieId } from '../mocks/reviews';
 
 const Movie = () => {
   const { movieId } = useParams();
   const movie = getFilmById(Number(movieId));
+  const reviews = getReviewsByMovieId(Number(movieId));
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -30,6 +34,7 @@ const Movie = () => {
               <MovieButtons/>
               <Link to={`/films/${movie?.id}/review`} className="btn film-card__button">Add review</Link>
             </div>
+            <Tabs movie={movie} reviews={reviews}/>
           </div>
         </div>
 
@@ -55,12 +60,12 @@ const Movie = () => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieCatalog/>
+          <Catalog movieList={movies.filter((m) => m.genre === movie.genre)}/>
         </section>
         <Footer/>
       </div>
     </>
   );
-}
+};
 
 export default Movie;

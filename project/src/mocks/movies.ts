@@ -1,6 +1,5 @@
 import {TMovie} from "../types/TMovie";
 import {videoLink} from "./videoLink";
-import movie from "../pages/movie";
 
 export const movies: TMovie[] = [
   {

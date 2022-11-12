@@ -3,7 +3,7 @@ import React from 'react';
 type Props = {
   movieName: string;
   movieGenre: string;
-  movieCreationDate: string;
+  movieCreationDate: number;
 }
 
 const MovieMeta: React.FC<Props> = (props: Props) => {
