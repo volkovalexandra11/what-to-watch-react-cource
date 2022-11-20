@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { initialState, reducer } from './reducer';
+import { initialState, globalReducer } from './globalReducer';
 
 export const store = configureStore({
   preloadedState: initialState,
-  reducer: reducer,
+  reducer: globalReducer,
 })

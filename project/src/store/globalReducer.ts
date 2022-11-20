@@ -8,7 +8,7 @@ export const initialState = {
   movieList: movies,
 };
 
-const reducer = createReducer(initialState, (builder) => {
+const globalReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeGenre, ((state, action) => {
       state.genre = action.payload.genre;
@@ -29,4 +29,4 @@ const getMoviesByGenreHelper = (newGenre: string, movies: TMovie[]) => {
   return movies.filter((m) => m.genre === newGenre);
 }
 
-export { reducer };
+export { globalReducer };
