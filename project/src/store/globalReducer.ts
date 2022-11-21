@@ -1,11 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { movies } from '../mocks/movies';
-import { changeGenre, getAllMovies, getMoviesByGenre } from './action';
+import { changeGenre, getAllMovies, getMoviesByGenre, incVisibleFilmsCount, resetVisibleFilmsCount } from './action';
 import { TMovie } from '../types/TMovie';
 
 export const initialState = {
   genre: 'All genres',
   movieList: movies,
+  visibleFilmsCount: 8
 };
 
 const globalReducer = createReducer(initialState, (builder) => {
@@ -20,6 +21,12 @@ const globalReducer = createReducer(initialState, (builder) => {
     .addCase(getAllMovies, (state) => {
       state.movieList = movies;
     })
+    .addCase(incVisibleFilmsCount, (state) => {
+      state.visibleFilmsCount += 8;
+    })
+    .addCase(resetVisibleFilmsCount, (state) => {
+      state.visibleFilmsCount = 8;
+    });
 });
 
 const getMoviesByGenreHelper = (newGenre: string, movies: TMovie[]) => {
