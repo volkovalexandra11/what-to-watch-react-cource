@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useAppSelector } from '../../hooks';
-import { AuthStatus } from '../../constants/constants';
+import { AppRoute, AuthStatus } from '../../constants/constants';
 import { Link } from 'react-router-dom';
 import AuthorizedUser from './authorized-user';
 
@@ -11,7 +11,7 @@ const User : FC = () => {
     <ul className="user-block">
       {authStatus === AuthStatus.Auth
         ? <AuthorizedUser avatarLink={user ? user.avatarUrl : '/img/avatar.jpg'} />
-        : <Link to='/login' className='user-block__link'>Sign in</Link>}
+        : <Link to={AppRoute.Login} className='user-block__link'>Sign in</Link>}
     </ul>
   );
 };

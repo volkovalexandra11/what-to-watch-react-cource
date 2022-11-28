@@ -1,9 +1,9 @@
 import React from 'react';
 
 type Props = {
-  movieName: string;
-  movieGenre: string;
-  movieCreationDate: string;
+  movieName?: string;
+  movieGenre?: string;
+  movieCreationDate?: number;
 }
 
 const MovieMeta: React.FC<Props> = (props: Props) => {
