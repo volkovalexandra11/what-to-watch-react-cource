@@ -1,8 +1,8 @@
-import { Film } from './film';
 import { store } from '../store';
+import { TMovie } from './TMovie';
 
 export type AppState = {
-  films: Film[];
+  films: Array<TMovie>;
   activeGenre: string;
 };
 

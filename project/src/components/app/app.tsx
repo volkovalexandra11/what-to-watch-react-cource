@@ -9,15 +9,11 @@ import Player from '../../pages/player';
 import PageNotFound from '../../pages/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import {TMovie} from '../../types/TMovie';
+import { useAppSelector } from '../../hooks';
 
-type Props = {
-  promoMovie: TMovie;
-  moviesList: TMovie[];
-}
-
-const App : FC<Props> = (props) => {
-  const { promoMovie, moviesList } = props;
+const App : FC = () => {
+  const { movieList } = useAppSelector((state) => state);
+  const promoMovie = movieList[0];
 
   return (
     <BrowserRouter>
@@ -26,7 +22,7 @@ const App : FC<Props> = (props) => {
           <Route
             index
             element={
-              <Main promoMovie={promoMovie} moviesList={moviesList}/>
+              <Main promoMovie={promoMovie} moviesList={movieList.slice(1)}/>
             }
           />
           <Route path='login' element={<SignIn/>}/>
@@ -34,7 +30,7 @@ const App : FC<Props> = (props) => {
             path='mylist'
             element={
               <PrivateRoute hasAccess={false}>
-                <MyList moviesList={moviesList.filter((m) => m.isFavorite)}/>
+                <MyList moviesList={movieList.filter((m) => m.isFavorite)}/>
               </PrivateRoute>
             }
           />

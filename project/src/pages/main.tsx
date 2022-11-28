@@ -16,7 +16,6 @@ const Main: React.FC<Props> = (props) => {
   return (
     <>
       <PromoFilmCard movie={promoMovie}/>
-
       <div className='page-content'>
         <Catalog movieList={moviesList}/>
         <Footer/>
