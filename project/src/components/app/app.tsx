@@ -1,5 +1,5 @@
-import {FC} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { FC } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from '../../pages/main';
 import SignIn from '../../pages/sign-in';
 import MyList from '../../pages/my-list';
@@ -9,11 +9,16 @@ import Player from '../../pages/player';
 import PageNotFound from '../../pages/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
+import Loader from '../Loader/loader';
 import { useAppSelector } from '../../hooks';
 
-const App : FC = () => {
-  const { movieList } = useAppSelector((state) => state);
+const App: FC = () => {
+  const { isMoviesLoaded, movieList } = useAppSelector((state) => state);
   const promoMovie = movieList[0];
+
+  if (!isMoviesLoaded) {
+    return <Loader/>;
+  }
 
   return (
     <BrowserRouter>
@@ -29,7 +34,7 @@ const App : FC = () => {
           <Route
             path='mylist'
             element={
-              <PrivateRoute hasAccess={false}>
+              <PrivateRoute>
                 <MyList moviesList={movieList.filter((m) => m.isFavorite)}/>
               </PrivateRoute>
             }
@@ -39,7 +44,7 @@ const App : FC = () => {
           <Route
             path='films/:id/review'
             element={
-              <PrivateRoute hasAccess={false}>
+              <PrivateRoute >
                 <AddReview/>
               </PrivateRoute>
             }

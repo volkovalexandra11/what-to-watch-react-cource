@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { initialState, globalReducer } from './globalReducer';
-import { createAPI } from '../services/api';
+import { createAPI } from '../services/api-service';
 
 const api = createAPI();
 
