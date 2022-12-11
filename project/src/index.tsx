@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { movies } from "./mocks/movies";
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { fetchMoviesAction } from './store/api-action';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+store.dispatch(fetchMoviesAction());
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App promoMovie={movies[0]} moviesList={movies.slice(1)}/>
+      <App />
     </Provider>
   </React.StrictMode>,
 );
