@@ -172,6 +172,6 @@ export const movies: TMovie[] = [
   }
 ];
 
-export function getFilmById(id: number): TMovie {
+export function getMovieById(id: number): TMovie {
   return movies.filter(m => m.id === id)[0];
 }

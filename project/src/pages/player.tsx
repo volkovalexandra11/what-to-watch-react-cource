@@ -10,17 +10,17 @@ type Props = {
 
 const Player: FC<Props> = ({ movie }) =>
   (
-    <div className="player">
-      <video src="#" className="player__video" poster="/img/player-poster.jpg"/>
+    <div className='player'>
+      <video src='#' className='player__video' poster='/img/player-poster.jpg'/>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type='button' className='player__exit'>Exit</button>
 
-      <div className="player__controls">
+      <div className='player__controls'>
         <Toggler/>
 
-        <div className="player__controls-row">
+        <div className='player__controls-row'>
           <PlayButton/>
-          <div className="player__name">Transpotting</div>
+          <div className='player__name'>Transpotting</div>
           <FullScreenButton/>
         </div>
       </div>

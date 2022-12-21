@@ -15,13 +15,13 @@ const GenresList: FC<Props> = (props) => {
   };
 
   return (
-    <ul className="catalog__genres-list">
+    <ul className='catalog__genres-list'>
       {
         allGenres.map((genre) => (
           <li className={`catalog__genres-item ${genre === genre ? 'catalog__genres-item--active' : ''}`} key={genre}
               onClick={() => handleChangeActiveGenre(genre)}
           >
-            <span className="catalog__genres-link">{genre}</span>
+            <span className='catalog__genres-link'>{genre}</span>
           </li>
         ))
       }

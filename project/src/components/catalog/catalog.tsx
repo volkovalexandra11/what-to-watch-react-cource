@@ -31,8 +31,7 @@ const Catalog: React.FC<Props> = ({ movieList }) => {
           )}
       </div>
 
-      <ShowMoreButton isVisible={movieList.length > shownMoviesCount} setVisibleMoviesCount={setShownMoviesCount}
-      ></ShowMoreButton>
+      <ShowMoreButton isVisible={movieList.length > shownMoviesCount} setVisibleMoviesCount={setShownMoviesCount}/>
     </section>
   );
 };

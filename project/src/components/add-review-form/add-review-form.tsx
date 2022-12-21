@@ -27,16 +27,16 @@ const AddReviewForm: FC = () => {
   };
 
   return (
-    <form action="#" className="add-review__form">
-      <div className="rating">
-        <div className="rating__stars">
+    <form action='#' className='add-review__form'>
+      <div className='rating'>
+        <div className='rating__stars'>
           {
             Array.from(Array(10).keys()).map((cur) => (
               <span key={cur}>
-                <input className="rating__input" id={`star-${cur + 1}`} type="radio" name="rating" value={cur + 1}
+                <input className='rating__input' id={`star-${cur + 1}`} type='radio' name='rating' value={cur + 1}
                   checked={formValue.starsCount === cur + 1} onChange={handleStarsCountChange}
                 />
-                <label className="rating__label" htmlFor={`star-${cur + 1}`}>Rating {cur + 1}</label>
+                <label className='rating__label' htmlFor={`star-${cur + 1}`}>Rating {cur + 1}</label>
               </span>
             )
             )
@@ -44,12 +44,12 @@ const AddReviewForm: FC = () => {
         </div>
       </div>
 
-      <div className="add-review__text">
-        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
+      <div className='add-review__text'>
+        <textarea className='add-review__textarea' name='review-text' id='review-text' placeholder='Review text'
           value={formValue.reviewText} onChange={handleReviewTextChange}
         />
-        <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+        <div className='add-review__submit'>
+          <button className='add-review__btn' type='submit'>Post</button>
         </div>
 
       </div>

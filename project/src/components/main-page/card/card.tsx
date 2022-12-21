@@ -14,7 +14,7 @@ const MovieCard: FC<Props> = (props) => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isNeedVideoToPlay, setIsNeedVideoToPlay] = useState(false);
 
-  useEffect(() => {
+ useEffect(() => {
     let needUpdate = true;
 
     if (isNeedVideoToPlay) {
@@ -31,14 +31,14 @@ const MovieCard: FC<Props> = (props) => {
 
   return (
     <article
-      className="small-film-card catalog__films-card"
+      className='small-film-card catalog__films-card'
       onMouseOver={(_) => {
         setIsNeedVideoToPlay(true);
         onHover?.((_) => movie.id)
       }}
       onMouseLeave={handleCardMouseLeave}
     >
-      <div className="small-film-card__image">
+      <div className='small-film-card__image'>
         <VideoPlayer
           movie={movie}
           needSound={false}
@@ -47,8 +47,8 @@ const MovieCard: FC<Props> = (props) => {
           height={175}
         />
       </div>
-      <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="/">{movie.name}</a>
+      <h3 className='small-film-card__title'>
+        <a className='small-film-card__link' href='/'>{movie.name}</a>
       </h3>
     </article>
   );
