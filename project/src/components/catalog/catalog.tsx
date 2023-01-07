@@ -13,7 +13,7 @@ type Props = {
 const Catalog: React.FC<Props> = ({ movieList }) => {
   const [, setActiveFilmCard] = useState<number | null>(null);
   const [shownMoviesCount, setShownMoviesCount] = useState<number>(8);
-  const { genre } = useAppSelector((state) => state);
+  const { activeGenre } = useAppSelector((state) => state);
   const allGenres = [ALL_GENRES].concat([...new Set(movieList.map((m) => m.genre))]);
 
   return (
@@ -24,7 +24,7 @@ const Catalog: React.FC<Props> = ({ movieList }) => {
 
       <div className='catalog__films-list'>
         {movieList
-          .filter((m) => m.genre === genre || genre === ALL_GENRES)
+          .filter((m) => m.genre === activeGenre || activeGenre === ALL_GENRES)
           .slice(0, shownMoviesCount)
           .map((movie, idx) =>
             <MovieCard key={`${movie.posterImage}`} movie={movie} onHover={setActiveFilmCard}/>

@@ -1,10 +1,10 @@
 import React from 'react';
 
 type Props = {
-  summary: string;
-  description: string;
-  director: string;
-  starring: string;
+  summary?: string;
+  description?: string;
+  director?: string;
+  starring?: string;
 }
 
 const MovieDescription:React.FC<Props> = (props) => {

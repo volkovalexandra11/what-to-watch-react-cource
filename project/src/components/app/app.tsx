@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Main from '../../pages/main';
+import MainPage from '../../pages/main-page';
 import SignIn from '../../pages/sign-in';
 import MyList from '../../pages/my-list';
 import Movie from '../../pages/movie';
@@ -11,15 +11,22 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import Loader from '../Loader/loader';
 import { useAppSelector } from '../../hooks';
+import { getPromoMovie } from '../../helpers/api_functions';
+import { TMovie } from '../../types/TMovie';
+import { ALL_GENRES } from '../../constants/constants';
 
 const App: FC = () => {
-  const { isMoviesLoaded, movieList } = useAppSelector((state) => state);
-  const promoMovie = movieList[0];
+  const { activeGenre, movieList, isMoviesLoaded } = useAppSelector((state) => state);
+  const [promoMovie, setPromoMovie] = useState<TMovie>();
+  const filteredMovies = movieList.filter((film) => film.genre === activeGenre || activeGenre === ALL_GENRES);
 
-  if (!isMoviesLoaded) {
+  useEffect(() => {
+    getPromoMovie().then(({ data }) => setPromoMovie(data));
+  }, []);
+
+  if (!isMoviesLoaded || !promoMovie) {
     return <Loader/>;
   }
-
   return (
     <BrowserRouter>
       <Routes>
@@ -27,7 +34,7 @@ const App: FC = () => {
           <Route
             index
             element={
-              <Main promoMovie={promoMovie} moviesList={movieList.slice(1)}/>
+              <MainPage  movieList={filteredMovies} promoMovie={promoMovie}/>
             }
           />
           <Route path='login' element={<SignIn/>}/>

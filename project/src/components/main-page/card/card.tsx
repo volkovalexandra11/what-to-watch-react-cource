@@ -34,7 +34,7 @@ const MovieCard: FC<Props> = (props) => {
       className="small-film-card catalog__films-card"
       onMouseOver={(_) => {
         setIsNeedVideoToPlay(true);
-        onHover?.((_) => movie.id)
+        onHover?.((_) => movie.id);
       }}
       onMouseLeave={handleCardMouseLeave}
     >

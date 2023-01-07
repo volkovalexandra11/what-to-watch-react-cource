@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../types/TStore'
+import { AppDispatch, State } from '../types/TStore';
 import { APIRoute, AuthStatus } from '../constants/constants';
 import { TMovie } from '../types/TMovie';
 import { changeAuthStatus, setIsMoviesLoaded, setMovies, setUser } from './action';
@@ -9,14 +9,14 @@ import { TAuthData } from '../types/TAuthData';
 import { dropToken, saveToken } from '../services/token-service';
 
 export const fetchMoviesAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'data/fetchFilms',
   async (_arg, { dispatch, extra: api }) => {
     dispatch(setIsMoviesLoaded(false));
-    const { data } = await api.get<TMovie[]>(APIRoute.Movies)
+    const { data } = await api.get<TMovie[]>(APIRoute.Movies);
     dispatch(setMovies({ movies: data }));
     dispatch(setIsMoviesLoaded(true));
   },

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { initialState, globalReducer } from './globalReducer';
 import { createAPI } from '../services/api-service';
 
-const api = createAPI();
+export const api = createAPI();
 
 export const store = configureStore({
   preloadedState: initialState,
@@ -13,4 +13,4 @@ export const store = configureStore({
         extraArgument: api,
       },
     })
-})
+});
