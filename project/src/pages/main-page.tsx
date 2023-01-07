@@ -6,8 +6,8 @@ import { TMovie } from '../types/TMovie';
 import Catalog from '../components/catalog/catalog';
 
 type Props = {
-  movieList: Array<TMovie>,
-  promoMovie: TMovie,
+  movieList: Array<TMovie>;
+  promoMovie: TMovie;
 }
 
 const MainPage: FC<Props> = (props) => {

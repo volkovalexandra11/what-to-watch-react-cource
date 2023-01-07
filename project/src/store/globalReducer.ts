@@ -24,7 +24,7 @@ const globalReducer = createReducer(initialState, (builder) => {
       state.isMoviesLoaded = action.payload;
     })
     .addCase(changeAuthStatus, (state, action) => {
-        state.authStatus = action.payload.authStatus;
+      state.authStatus = action.payload.authStatus;
     })
     .addCase(setUser, (state, action) => {
       state.user = action.payload.user;

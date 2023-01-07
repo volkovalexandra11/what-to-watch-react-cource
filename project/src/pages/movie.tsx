@@ -7,8 +7,8 @@ import MovieDescription from '../components/movie-page/movie-description/movie-d
 import MovieMeta from '../components/movie-page/movie-meta/movie-meta';
 import MovieButtons from '../components/movie-page/movie-buttons/movie-buttons';
 import Header from '../components/header/header';
-import MovieCatalog from '../components/movie-page/movie-catalog/movie-catalog';
 import Poster from '../components/movie-page/poster/poster';
+import Catalog from '../components/catalog/catalog';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { TMovie } from '../types/TMovie';
 import { getMovie, getSimilarMovies } from '../helpers/api_functions';
@@ -82,12 +82,12 @@ const Movie = () => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieCatalog movieList={sameMovies}/>
+          <Catalog movieList={sameMovies}/>
         </section>
         <Footer/>
       </div>
     </>
   );
-}
+};
 
 export default Movie;

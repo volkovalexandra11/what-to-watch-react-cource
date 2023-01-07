@@ -18,7 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .tsx --ext .ts src/"
+    "lint": "eslint --ext .tsx --ext .ts src/",
+    "lint:fix": "eslint --fix . --ext .tsx src"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",

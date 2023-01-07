@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../components/logo/logo';
-import AddReviewForm from "../components/add-review-form/add-review-form";
+import AddReviewForm from '../components/add-review-form/add-review-form';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import User from '../components/user/user';
 import { TMovie } from '../types/TMovie';

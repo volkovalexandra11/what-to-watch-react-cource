@@ -5,7 +5,7 @@ import FullScreenButton from '../components/player/full-screen-button/full-scree
 import { TMovie } from '../types/TMovie';
 
 type Props = {
-  movie: TMovie
+  movie: TMovie;
 }
 
 const Player: FC<Props> = ({ movie }) =>

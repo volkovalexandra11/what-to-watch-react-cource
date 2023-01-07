@@ -1,5 +1,5 @@
 import { APIRoute } from '../constants/constants';
-import { api } from '../store'
+import { api } from '../store';
 import { TMovie } from '../types/TMovie';
 import { TReview } from '../types/TReview';
 

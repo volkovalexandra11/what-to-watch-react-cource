@@ -35,7 +35,7 @@ const VideoPlayer: FC<Props> = (props) => {
       width={width}
       height={height}
     />
-  )
-}
+  );
+};
 
 export default VideoPlayer;

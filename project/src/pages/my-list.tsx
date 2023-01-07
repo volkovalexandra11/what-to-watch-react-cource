@@ -1,12 +1,12 @@
 import React from 'react';
 import Logo from '../components/logo/logo';
 import Footer from '../components/footer/footer';
-import Catalog from "../components/catalog/catalog";
-import { TMovie } from "../types/TMovie";
+import Catalog from '../components/catalog/catalog';
+import { TMovie } from '../types/TMovie';
 import User from '../components/user/user';
 
 type Props = {
-  moviesList: TMovie[]
+  moviesList: TMovie[];
 }
 
 const MyList: React.FC<Props> = ({ moviesList }) =>
