@@ -1,18 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { VISIBLE_FILMS_COUNT_STEP, NameSpace } from '../../constants/constants';
-import { changePromoStatusToView, fetchFavoriteMoviesAction, fetchMoviesAction, fetchPromoAction } from '../api-action';
-import { MainData } from '../../types/main-data';
-import { DEFAULT_GENRE } from '../../types/genres';
-import { filterMoviesByGenre } from '../../utils/genre';
+import {createSlice} from '@reduxjs/toolkit';
+import {CARDS_PER_STEP, NameSpace} from '../../const';
+import {
+  changeFilmStatusToView,
+  fetchFavoriteFilmsAction,
+  fetchFilmsAction,
+  fetchPromoAction
+} from '../api-actions';
+import {MainData} from '../../types/main-data';
+import {DEFAULT_GENRE} from '../../types/genres';
+import {filterFilmsByGenre} from '../../utils/genre';
 
 const initialState: MainData = {
-  movies: [],
+  films: [],
   promo: null,
   isDataLoaded: false,
   currentGenre: DEFAULT_GENRE,
-  filteredMovies: [],
+  filteredFilms: [],
   cardCount: 0,
-  favoriteMovies: [],
+  favoriteFilms: [],
   favoriteCount: 0
 };
 
@@ -22,33 +27,29 @@ export const mainData = createSlice({
   reducers: {
     resetMainScreen: (state) => {
       state.currentGenre = DEFAULT_GENRE;
-      state.filteredMovies = state.movies;
-      state.cardCount = state.movies.length < VISIBLE_FILMS_COUNT_STEP ? state.movies.length : VISIBLE_FILMS_COUNT_STEP;
+      state.filteredFilms = state.films;
+      state.cardCount = state.films.length < CARDS_PER_STEP ? state.films.length : CARDS_PER_STEP;
     },
     changeGenre: (state, action) => {
-      const filteredMovies = filterMoviesByGenre(state.movies, action.payload.currentGenre);
+      const filteredFilms = filterFilmsByGenre(state.films, action.payload.currentGenre);
 
       state.currentGenre = action.payload.currentGenre;
-      state.filteredMovies = filteredMovies;
-      state.cardCount = filteredMovies.length < VISIBLE_FILMS_COUNT_STEP ?
-        filteredMovies.length :
-        VISIBLE_FILMS_COUNT_STEP;
+      state.filteredFilms = filteredFilms;
+      state.cardCount = filteredFilms.length < CARDS_PER_STEP ?
+        filteredFilms.length :
+        CARDS_PER_STEP;
     },
 
     increaseCardCount: (state) => {
-      state.cardCount = (state.cardCount + VISIBLE_FILMS_COUNT_STEP) < state.filteredMovies.length ?
-        state.cardCount + VISIBLE_FILMS_COUNT_STEP :
-        state.filteredMovies.length;
+      state.cardCount = (state.cardCount + CARDS_PER_STEP) < state.filteredFilms.length ?
+        state.cardCount + CARDS_PER_STEP :
+        state.filteredFilms.length;
     },
 
     resetCardCount: (state) => {
-      state.cardCount = state.filteredMovies.length < VISIBLE_FILMS_COUNT_STEP ?
-        state.filteredMovies.length :
-        VISIBLE_FILMS_COUNT_STEP;
-    },
-
-    setIsDataLoaded: (state, action) => {
-      state.isDataLoaded = action.payload;
+      state.cardCount = state.filteredFilms.length < CARDS_PER_STEP ?
+        state.filteredFilms.length :
+        CARDS_PER_STEP;
     },
 
     setFavoriteCount: (state, action) => {
@@ -57,30 +58,35 @@ export const mainData = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchMoviesAction.pending, (state) => {
+      .addCase(fetchFilmsAction.pending, (state) => {
         state.isDataLoaded = true;
       })
-      .addCase(fetchMoviesAction.fulfilled, (state, action) => {
-        const movies = action.payload;
+      .addCase(fetchFilmsAction.fulfilled, (state, action) => {
+        const films = action.payload;
 
-        state.movies = movies;
-        state.filteredMovies = movies;
-        state.cardCount = movies.length < VISIBLE_FILMS_COUNT_STEP ? movies.length : 8;
+        state.films = films;
+        state.filteredFilms = films;
+        state.cardCount = films.length < CARDS_PER_STEP ? films.length : 8;
         state.isDataLoaded = false;
       })
       .addCase(fetchPromoAction.fulfilled, (state, action) => {
         state.promo = action.payload;
       })
-      .addCase(fetchFavoriteMoviesAction.pending, (state) => {
+
+      .addCase(fetchFavoriteFilmsAction.pending, (state) => {
         state.isDataLoaded = true;
       })
-      .addCase(fetchFavoriteMoviesAction.fulfilled, (state, action) => {
-        state.favoriteMovies = action.payload;
+      .addCase(fetchFavoriteFilmsAction.fulfilled, (state, action) => {
+        state.favoriteFilms = action.payload;
         state.favoriteCount = action.payload.length;
         state.isDataLoaded = false;
       })
-      .addCase(changePromoStatusToView.fulfilled, (state, action) => {
-        state.promo = action.payload;
+      .addCase(changeFilmStatusToView.fulfilled, (state, action) => {
+        if (action.payload.isFavorite) {
+          state.favoriteCount = state.favoriteCount + 1;
+        } else {
+          state.favoriteCount = state.favoriteCount - 1;
+        }
       });
   }
 });
@@ -89,7 +95,4 @@ export const {
   resetMainScreen,
   changeGenre,
   increaseCardCount,
-  resetCardCount,
-  setIsDataLoaded,
-  setFavoriteCount
 } = mainData.actions;

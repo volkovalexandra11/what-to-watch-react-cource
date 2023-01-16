@@ -1,24 +1,24 @@
-import React, { FC } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import MainPage from '../../pages/main-page';
-import SignIn from '../../pages/sign-in';
-import MyList from '../../pages/my-list';
-import Movie from '../../pages/movie';
-import AddReview from '../../pages/add-review';
-import Player from '../../pages/player';
-import PageNotFound from '../../pages/not-found';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+
+import Main from '../../pages/main/main';
+import SignIn from '../../pages/sign-in/sign-in';
+import MyList from '../../pages/my-list/my-list';
+import MoviePage from '../../pages/movie-page/movie-page';
+import Player from '../../pages/player/player';
+import AddReview from '../../pages/add-review/add-review';
+import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import Loader from '../Loader/loader';
-import { useAppSelector } from '../../hooks';
-import { isCheckedAuth } from '../../utils/check-auth';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import Loading from '../../pages/loading/loading';
+import {isCheckedAuth} from '../../utils/check-auth';
+import {useAppSelector} from '../../hooks';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
-const App: FC = () => {
-  const authStatus = useAppSelector(getAuthorizationStatus);
-  if (isCheckedAuth(authStatus)) {
+function App(): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  if (isCheckedAuth(authorizationStatus)) {
     return (
-      <Loader/>
+      <Loading/>
     );
   }
 
@@ -26,34 +26,30 @@ const App: FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout/>}>
-          <Route
-            index
-            element={<MainPage/>}
-          />
+          <Route index element={<Main/>} />
           <Route path='login' element={<SignIn/>}/>
           <Route
             path='mylist'
             element={
-              <PrivateRoute>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
                 <MyList/>
               </PrivateRoute>
             }
           />
-          <Route path='films/:id' element={<Movie/>}/>
+          <Route path='films/:id' element={<MoviePage/>}/>
           <Route path='player/:id' element={<Player/>}/>
           <Route
             path='films/:id/review'
             element={
-              <PrivateRoute>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
                 <AddReview/>
               </PrivateRoute>
             }
           />
+          <Route path='*' element={<NotFound/>}/>
         </Route>
-        <Route path='*' element={<PageNotFound/>}/>
       </Routes>
-    </BrowserRouter>
-  );
-};
+    </BrowserRouter>);
+}
 
 export default App;
