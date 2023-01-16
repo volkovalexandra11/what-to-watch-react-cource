@@ -1,12 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace, AuthStatus } from '../../constants/constants';
-import { UserProcess } from '../../types/TStore';
-import { checkAuthAction, login, logout } from '../api-action';
-import { saveToken } from '../../services/token-service';
-import { getAvatarURL, saveAvatarURL } from '../../services/avatar-service';
+import {createSlice} from '@reduxjs/toolkit';
+import {NameSpace, AuthorizationStatus} from '../../const';
+import {UserProcess} from '../../types/state';
+import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
+import {getAvatarURL, saveAvatarURL} from '../../services/avatar';
 
 const initialState: UserProcess = {
-  authorizationStatus: AuthStatus.Unknown,
+  authorizationStatus: AuthorizationStatus.Unknown,
   avatar: getAvatarURL(),
   userId: null
 };
@@ -18,23 +17,22 @@ export const userProcess = createSlice({
   extraReducers(builder) {
     builder
       .addCase(checkAuthAction.fulfilled, (state) => {
-        state.authorizationStatus = AuthStatus.Auth;
+        state.authorizationStatus = AuthorizationStatus.Auth;
       })
       .addCase(checkAuthAction.rejected, (state) => {
-        state.authorizationStatus = AuthStatus.NoAuth;
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
-      .addCase(login.rejected, (state) => {
-        state.authorizationStatus = AuthStatus.NoAuth;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        saveToken(action.payload.token);
+      .addCase(loginAction.fulfilled, (state, action) => {
         state.avatar = action.payload.avatarUrl;
         saveAvatarURL(action.payload.avatarUrl);
         state.userId = action.payload.userId;
-        state.authorizationStatus = AuthStatus.Auth;
+        state.authorizationStatus = AuthorizationStatus.Auth;
       })
-      .addCase(logout.fulfilled, (state, _) => {
-        state.authorizationStatus = AuthStatus.NoAuth;
+      .addCase(loginAction.rejected, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+      })
+      .addCase(logoutAction.fulfilled, (state, action) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.avatar = null;
         state.userId = null;
       });
