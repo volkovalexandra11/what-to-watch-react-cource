@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
-import { TMovie } from '../../../types/TMovie';
+import { Link } from 'react-router-dom';
 import VideoPlayer from '../../video-player/video-palyer';
+import { TMovie } from '../../../types/TMovie';
 
 type Props = {
   movie: TMovie;
@@ -21,7 +22,9 @@ const MovieCard: FC<Props> = (props) => {
       setTimeout(() => needUpdate && setIsVideoPlaying(true), TIME_BEFORE_PLAYING_MS);
     }
 
-    return () => {needUpdate = false;};
+    return () => {
+      needUpdate = false;
+    };
   }, [isNeedVideoToPlay]);
 
   const handleCardMouseLeave = () => {
@@ -48,7 +51,7 @@ const MovieCard: FC<Props> = (props) => {
         />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="/">{movie.name}</a>
+        <Link className="small-film-card__link" to={`/films/${movie.id}`}>{movie.name}</Link>
       </h3>
     </article>
   );

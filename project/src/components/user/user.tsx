@@ -3,14 +3,16 @@ import { useAppSelector } from '../../hooks';
 import { AppRoute, AuthStatus } from '../../constants/constants';
 import { Link } from 'react-router-dom';
 import AuthorizedUser from './authorized-user';
+import { getAuthorizationStatus, getAvatarUrl } from '../../store/user-process/selectors';
 
-const User : FC = () => {
-  const { authStatus, user } = useAppSelector((state) => state);
+const User: FC = () => {
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const avatarUrl = useAppSelector(getAvatarUrl);
 
   return (
     <ul className="user-block">
       {authStatus === AuthStatus.Auth
-        ? <AuthorizedUser avatarLink={user ? user.avatarUrl : '/img/avatar.jpg'} />
+        ? <AuthorizedUser avatarLink={avatarUrl ? avatarUrl : '/img/avatar.jpg'}/>
         : <Link to={AppRoute.Login} className='user-block__link'>Sign in</Link>}
     </ul>
   );

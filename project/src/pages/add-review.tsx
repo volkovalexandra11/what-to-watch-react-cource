@@ -1,32 +1,28 @@
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Logo from '../components/logo/logo';
-import AddReviewForm from '../components/add-review-form/add-review-form';
 import { useAppDispatch, useAppSelector } from '../hooks';
+import { getLoadedDataStatus } from '../store/main-data/selectors';
+import { getMovie } from '../store/film-data/selectors';
+import { fetchMovieByID } from '../store/api-action';
+import Loader from '../components/Loader/loader';
+import Logo from '../components/logo/logo';
 import User from '../components/user/user';
-import { TMovie } from '../types/TMovie';
-import { useEffect, useState } from 'react';
-import { AppRoute } from '../constants/constants';
-import { getMovie } from '../helpers/api_functions';
-import { redirect } from '../store/action';
+import AddReviewForm from '../components/add-review-form/add-review-form';
 
 const AddReview = () => {
-  const params = useParams();
-  const movieId = Number(params.filmId);
+  const id = Number(useParams().id);
+  const movie = useAppSelector(getMovie);
+  const loadStatus = useAppSelector(getLoadedDataStatus);
 
-  const { movieList } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const [movie, setMovie] = useState<TMovie | null>();
-
   useEffect(() => {
-    getMovie(movieId).then(({ data }) => {
-      if (data) {
-        setMovie(data);
-      } else {
-        dispatch(redirect(AppRoute.ERROR404));
-      }
-    });
-  }, [movieId]);
+    dispatch(fetchMovieByID(id.toString()));
+  }, [id, dispatch]);
+
+  if (loadStatus) {
+    return(<Loader />);
+  }
 
   return (
     <section className="film-card film-card--full">
@@ -59,11 +55,10 @@ const AddReview = () => {
       </div>
 
       <div className="add-review">
-        <AddReviewForm movieId={movieId}/>
+        <AddReviewForm movieId={movie?.id}/>
       </div>
-
     </section>
   );
-}
+};
 
 export default AddReview;
