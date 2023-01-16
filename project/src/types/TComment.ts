@@ -1,4 +1,4 @@
-;export type TReview = {
+export type TComment = {
   comment: string;
   date: string;
   id: number;

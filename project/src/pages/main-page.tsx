@@ -1,21 +1,34 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
-import PromoFilmCard from '../components/main-page/promo-movie-card/promo-movie-card';
+import PromoMovieCard from '../components/main-page/promo-movie-card/promo-movie-card';
 import Footer from '../components/footer/footer';
-import { TMovie } from '../types/TMovie';
 import Catalog from '../components/catalog/catalog';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { getAuthorizationStatus } from '../store/user-process/selectors';
+import { getFilteredMovies, getPromo } from '../store/main-data/selectors';
+import { fetchFavoriteMoviesAction } from '../store/api-action';
+import { AuthStatus } from '../constants/constants';
 
-type Props = {
-  movieList: Array<TMovie>;
-  promoMovie: TMovie;
-}
 
-const MainPage: FC<Props> = (props) => {
-  const { movieList, promoMovie } = props;
+const MainPage: FC = () => {
+  const dispatch = useAppDispatch();
+  const promoMovie = useAppSelector(getPromo);
+  const authStatus = useAppSelector(getAuthorizationStatus);
+
+  useEffect(() => {
+    if (authStatus === AuthStatus.Auth) {
+      dispatch(fetchFavoriteMoviesAction());
+    }
+  }, [authStatus, dispatch]);
+  const movieList = useAppSelector(getFilteredMovies);
+
+  if (!promoMovie) {
+    return <section className="film-card"></section>;
+  }
 
   return (
     <>
-      <PromoFilmCard movie={promoMovie}/>
+      <PromoMovieCard movie={promoMovie}/>
       <div className='page-content'>
         <Catalog movieList={movieList}/>
         <Footer/>

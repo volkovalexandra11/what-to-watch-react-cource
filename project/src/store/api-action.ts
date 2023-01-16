@@ -1,24 +1,27 @@
-import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../types/TStore';
-import { APIRoute, AuthStatus } from '../constants/constants';
+import { useNavigate } from 'react-router-dom';
 import { TMovie } from '../types/TMovie';
-import { changeAuthStatus, setIsMoviesLoaded, setMovies, setUser } from './action';
-import { TUser } from '../types/TUser';
+import { AxiosInstance } from 'axios';
+import { APIRoute } from '../constants/constants';
+import { AppDispatch, State } from '../types/TStore';
+import { dropToken } from '../services/token-service';
+import { dropAvatarURL } from '../services/avatar-service';
 import { TAuthData } from '../types/TAuthData';
-import { dropToken, saveToken } from '../services/token-service';
+import { TUser } from '../types/TUser';
+import { TUserComment } from '../types/t-user-comment';
+import { MovieStatus } from '../types/movie-status';
+import { TComment } from '../types/TComment';
 
-export const fetchMoviesAction = createAsyncThunk<void, undefined, {
+
+export const fetchMoviesAction = createAsyncThunk<TMovie[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchFilms',
-  async (_arg, { dispatch, extra: api }) => {
-    dispatch(setIsMoviesLoaded(false));
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<TMovie[]>(APIRoute.Movies);
-    dispatch(setMovies({ movies: data }));
-    dispatch(setIsMoviesLoaded(true));
+    return data;
   },
 );
 
@@ -28,30 +31,21 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, { dispatch, extra: api }) => {
-    try {
-      const { data: user } = await api.get<TUser>(APIRoute.Login);
-      dispatch(setUser({ user }));
-      dispatch(changeAuthStatus({ authStatus: AuthStatus.Auth }));
-    } catch {
-      dispatch(changeAuthStatus({ authStatus: AuthStatus.NoAuth }));
-    }
-  }
+  async (_arg, { extra: api }) => {
+    await api.get(APIRoute.Login);
+  },
 );
 
-
-export const login = createAsyncThunk<void, TAuthData, {
+export const login = createAsyncThunk<{ token: string, avatarUrl: string, userId: number }, TAuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: user } = await api.post<TUser>(APIRoute.Login, { email, password });
-    saveToken(user.token);
-    dispatch(setUser({ user }));
-    dispatch(changeAuthStatus({ authStatus: AuthStatus.Auth }));
-  }
+  async ({ login, password }, { extra: api }) => {
+    const { data: { token, avatarUrl, id } } = await api.post<TUser>(APIRoute.Login, { login, password });
+    return { token: token, avatarUrl: avatarUrl, userId: id };
+  },
 );
 
 export const logout = createAsyncThunk<void, undefined, {
@@ -60,9 +54,110 @@ export const logout = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
-    dispatch(changeAuthStatus({ authStatus: AuthStatus.NoAuth }));
     dropToken();
-  }
+    dropAvatarURL();
+  },
+);
+
+export const fetchMovieByID = createAsyncThunk<TMovie | null, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchTMovieById',
+  async (filmId: string, { extra: api }) => {
+    const { data } = await api.get<TMovie>(`${APIRoute.Movies}/${filmId}`);
+    return data;
+  },
+);
+
+export const fetchCommentsByID = createAsyncThunk<TComment[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchCommentsById',
+  async (filmId: string, { extra: api }) => {
+    const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${filmId}`);
+    return data;
+  },
+);
+
+export const fetchSimilarByID = createAsyncThunk<TMovie[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchSimilarById',
+  async (filmId: string, { extra: api }) => {
+    const { data } = await api.get<TMovie[]>(`${APIRoute.Movies}/${filmId}${APIRoute.Similar}`);
+    return data;
+  },
+);
+
+export const postComment = createAsyncThunk<void, TUserComment, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postCommentById',
+  async ({ comment, rating, filmId }, { extra: api }) => {
+    await api.post<TUserComment>(`${APIRoute.Comments}/${filmId}`, { comment, rating });
+    const navigate = useNavigate();
+    navigate(`${APIRoute.Movies}/${filmId}`);
+  },
+);
+
+export const changeMovieStatusToView = createAsyncThunk<TMovie, MovieStatus, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/changeTMovieStatusToView',
+  async ({ filmId: id, status: isFavorite }, { extra: api }) => {
+    const { data } = await api.post<TMovie>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+
+    return data;
+  },
+);
+
+export const changePromoStatusToView = createAsyncThunk<TMovie, MovieStatus, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/changePromoStatusToView',
+  async ({ filmId: id, status: isFavorite }, { extra: api }) => {
+    const { data } = await api.post<TMovie>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+
+    return data;
+  },
+);
+
+export const fetchFavoriteMoviesAction = createAsyncThunk<TMovie[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavoriteTMoviesAction',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<TMovie[]>(APIRoute.Favorite);
+
+    return data;
+  },
+);
+
+export const fetchPromoAction = createAsyncThunk<TMovie, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchPromo',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<TMovie>(APIRoute.Promo);
+
+    return data;
+  },
 );

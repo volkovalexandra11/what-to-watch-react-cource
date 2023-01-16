@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { postMovieReview } from '../../helpers/api_functions';
+import { Navigate } from 'react-router-dom';
 
 type ReviewFormValue = {
   starsCount: number;
@@ -7,7 +8,7 @@ type ReviewFormValue = {
 };
 
 type Props = {
-  movieId: number,
+  movieId: number | undefined;
 }
 
 const AddReviewForm: FC<Props> = (props) => {
@@ -17,6 +18,10 @@ const AddReviewForm: FC<Props> = (props) => {
     starsCount: 0,
     reviewText: ''
   });
+
+  if (!movieId) {
+    return <Navigate to={'/error'}/>;
+  }
 
   const onSubmit = (review: ReviewFormValue) => {
     postMovieReview(movieId, {comment: review.reviewText, rating: review.starsCount}).then();
@@ -50,21 +55,20 @@ const AddReviewForm: FC<Props> = (props) => {
         <div className="rating__stars">
           {
             Array.from(Array(10).keys()).map((cur) => (
-                <span key={cur}>
+              <span key={cur}>
                 <input className="rating__input" id={`star-${cur + 1}`} type="radio" name="rating" value={cur + 1}
-                       checked={formValue.starsCount === cur + 1} onChange={handleStarsCountChange}
+                  checked={formValue.starsCount === cur + 1} onChange={handleStarsCountChange}
                 />
                 <label className="rating__label" htmlFor={`star-${cur + 1}`}>Rating {cur + 1}</label>
               </span>
-              )
-            )
+            ))
           }
         </div>
       </div>
 
       <div className="add-review__text">
         <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
-                  value={formValue.reviewText} onChange={handleReviewTextChange}
+          value={formValue.reviewText} onChange={handleReviewTextChange}
         />
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>

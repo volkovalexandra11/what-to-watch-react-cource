@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import Footer from '../components/footer/footer';
 import Navigation from '../components/movie-page/navigation/navigation';
 import Rating from '../components/movie-page/rating/rating';
@@ -9,33 +9,45 @@ import MovieButtons from '../components/movie-page/movie-buttons/movie-buttons';
 import Header from '../components/header/header';
 import Poster from '../components/movie-page/poster/poster';
 import Catalog from '../components/catalog/catalog';
+import Loader from '../components/Loader/loader';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { TMovie } from '../types/TMovie';
-import { getMovie, getSimilarMovies } from '../helpers/api_functions';
-import { AppRoute, AuthStatus } from '../constants/constants';
-import { redirect } from '../store/action';
+import { AuthStatus } from '../constants/constants';
+import { getAuthorizationStatus } from '../store/user-process/selectors';
+import { fetchCommentsByID, fetchFavoriteMoviesAction, fetchMovieByID, fetchSimilarByID } from '../store/api-action';
+import { getIsMovieFoundStatus, getIsMovieLoadingStatus, getMovie, getSimilar } from '../store/film-data/selectors';
+import { FilmTabs } from '../types/film-tabs';
+import { changeFilmTab } from '../store/film-data/film-data';
+import { setIsDataLoaded } from '../store/main-data/main-data';
 
 const Movie = () => {
-  const params = useParams();
-  const movieId = Number(params.filmId);
-
-  const [movie, setMovie] = useState<TMovie>();
-  const [sameMovies, setSameMovies] = useState<TMovie[]>([]);
-
+  const id = Number(useParams().id);
+  const movie = useAppSelector(getMovie);
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const loadStatus = useAppSelector(getIsMovieLoadingStatus);
+  const isFilmFoundStatus = useAppSelector(getIsMovieFoundStatus);
   const dispatch = useAppDispatch();
-
-  const { authStatus } = useAppSelector((state) => state);
+  const similar = useAppSelector(getSimilar);
 
   useEffect(() => {
-    getMovie(movieId).then(({ data }) => {
-      if (data) {
-        setMovie(data);
-      } else {
-        dispatch(redirect(AppRoute.ERROR404));
-      }
-    });
-    getSimilarMovies(movieId).then(({ data }) => setSameMovies(data));
-  }, [movieId]);
+    dispatch(setIsDataLoaded(true));
+    dispatch(changeFilmTab(FilmTabs.Overview));
+    dispatch(fetchMovieByID(id.toString()));
+    dispatch(fetchCommentsByID(id.toString()));
+    dispatch(fetchSimilarByID(id.toString()));
+    if (authStatus === AuthStatus.Auth) {
+      dispatch(fetchFavoriteMoviesAction());
+    }
+
+    dispatch(setIsDataLoaded(false));
+  }, [id, dispatch, authStatus]);
+
+  if (loadStatus) {
+    return (<Loader/>);
+  }
+
+  if (!isFilmFoundStatus) {
+    return <Navigate to={'/notfound'}/>;
+  }
 
   return (
     <>
@@ -53,7 +65,7 @@ const Movie = () => {
               <MovieButtons/>
               {
                 authStatus === AuthStatus.Auth
-                  ? <Link to={`/films/${movie.id}/review`} className="btn film-card__button">Add review</Link>
+                  ? <Link to={`/films/${movie?.id}/review`} className="btn film-card__button">Add review</Link>
                   : null
               }
             </div>
@@ -67,9 +79,6 @@ const Movie = () => {
               <Navigation/>
               <Rating/>
               <MovieDescription
-                description='Gustave prides himself on providing first-class service to the hotel`&apos;`s guests, including satisfying the
-            sexual needs of the many elderly women who stay there. When one of Gustave`&apos;`s lovers dies mysteriously,
-            Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.'
                 director={movie?.director}
                 starring={movie?.starring.join(' ')}
                 summary={movie?.description}
@@ -82,7 +91,7 @@ const Movie = () => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <Catalog movieList={sameMovies}/>
+          <Catalog movieList={similar}/>
         </section>
         <Footer/>
       </div>

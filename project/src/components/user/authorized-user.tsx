@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { MouseEvent, FC } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { logout } from '../../store/api-action';
 
@@ -10,7 +10,7 @@ const AuthorizedUser: FC<AuthorizedUserProps> = (props) => {
   const { avatarLink } = props;
   const dispatch = useAppDispatch();
 
-  const handleSignOutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleSignOutClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
     dispatch(logout());
