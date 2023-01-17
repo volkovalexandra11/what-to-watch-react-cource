@@ -4,43 +4,43 @@ import Footer from '../../components/footer/footer';
 import Catalog from '../../components/catalog/catalog';
 import Logo from '../../components/logo/logo';
 import {Navigate, useParams} from 'react-router-dom';
-import FilmDescription from '../../components/film-description/film-description';
+import MovieDescription from '../../components/movie-description/movie-description';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {
   fetchCommentsByID,
   fetchFavoriteFilmsAction,
   fetchFilmByID,
   fetchSimilarByID
-} from '../../store/api-actions';
+} from '../../store/api-action';
 import Loading from '../loading/loading';
-import {AuthorizationStatus} from '../../const';
+import {AuthStatus} from '../../const';
 import UserBlock from '../../components/user-block/user-block';
-import {getFilm, getIsFilmFoundStatus, getIsFilmLoadingStatus, getSimilar} from '../../store/film-data/selectors';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getMovie, getIsMovieFound, getIsMovieLoading, getSimilar} from '../../store/film-data/selectors';
+import {getAuthStatus} from '../../store/user-process/selectors';
 import {changeFilmTab} from '../../store/film-data/film-data';
-import {FilmTabs} from '../../types/film-tabs';
-import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons';
+import {MovieTabs} from '../../types/movie-tabs';
+import FilmCardButtons from '../../components/movie-card-buttons/movie-card-buttons';
 
 function MoviePage(): JSX.Element{
 
   const id = Number(useParams().id);
-  const film = useAppSelector(getFilm);
-  const authStatus = useAppSelector(getAuthorizationStatus);
+  const film = useAppSelector(getMovie);
+  const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
   const similar = useAppSelector(getSimilar);
 
   useEffect(() => {
-    dispatch(changeFilmTab(FilmTabs.Overview));
+    dispatch(changeFilmTab(MovieTabs.Overview));
     dispatch(fetchFilmByID(id.toString()));
     dispatch(fetchCommentsByID(id.toString()));
     dispatch(fetchSimilarByID(id.toString()));
-    if (authStatus === AuthorizationStatus.Auth) {
+    if (authStatus === AuthStatus.Auth) {
       dispatch(fetchFavoriteFilmsAction());
     }
   }, [id, dispatch, authStatus]);
 
-  const isFilmLoadingStatus = useAppSelector(getIsFilmLoadingStatus);
-  const isFilmFoundStatus = useAppSelector(getIsFilmFoundStatus);
+  const isFilmLoadingStatus = useAppSelector(getIsMovieLoading);
+  const isFilmFoundStatus = useAppSelector(getIsMovieFound);
 
   if (isFilmLoadingStatus) {
     return(<Loading />);
@@ -73,7 +73,7 @@ function MoviePage(): JSX.Element{
                 <span className="film-card__year">{film!.released}</span>
               </p>
 
-              <FilmCardButtons film={film!} authStatus={authStatus}/>
+              <FilmCardButtons movie={film!} authStatus={authStatus}/>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ function MoviePage(): JSX.Element{
                 width="218" height="327"
               />
             </div>
-            <FilmDescription />
+            <MovieDescription />
           </div>
         </div>
       </section>
@@ -93,7 +93,7 @@ function MoviePage(): JSX.Element{
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <Catalog films={similar}/>
+          <Catalog movieList={similar}/>
         </section>
 
         <Footer/>

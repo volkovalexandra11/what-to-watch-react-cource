@@ -1,23 +1,18 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {CARDS_PER_STEP, NameSpace} from '../../const';
-import {
-  changeFilmStatusToView,
-  fetchFavoriteFilmsAction,
-  fetchFilmsAction,
-  fetchPromoAction
-} from '../api-actions';
-import {MainData} from '../../types/main-data';
-import {DEFAULT_GENRE} from '../../types/genres';
-import {filterFilmsByGenre} from '../../utils/genre';
+import { createSlice } from '@reduxjs/toolkit';
+import { VISIBLE_CARDS_COUNT, NameSpace } from '../../const';
+import { changeFilmStatusToView, fetchFavoriteFilmsAction, fetchFilmsAction, fetchPromoAction } from '../api-action';
+import { MainData } from '../../types/main-data';
+import { DEFAULT_GENRE } from '../../types/genres';
+import { filterFilmsByGenre } from '../../utils/genre';
 
 const initialState: MainData = {
-  films: [],
+  movies: [],
   promo: null,
   isDataLoaded: false,
   currentGenre: DEFAULT_GENRE,
-  filteredFilms: [],
+  filteredMovies: [],
   cardCount: 0,
-  favoriteFilms: [],
+  favoriteMovies: [],
   favoriteCount: 0
 };
 
@@ -27,29 +22,29 @@ export const mainData = createSlice({
   reducers: {
     resetMainScreen: (state) => {
       state.currentGenre = DEFAULT_GENRE;
-      state.filteredFilms = state.films;
-      state.cardCount = state.films.length < CARDS_PER_STEP ? state.films.length : CARDS_PER_STEP;
+      state.filteredMovies = state.movies;
+      state.cardCount = state.movies.length < VISIBLE_CARDS_COUNT ? state.movies.length : VISIBLE_CARDS_COUNT;
     },
     changeGenre: (state, action) => {
-      const filteredFilms = filterFilmsByGenre(state.films, action.payload.currentGenre);
+      const filteredMovies = filterFilmsByGenre(state.movies, action.payload.currentGenre);
 
       state.currentGenre = action.payload.currentGenre;
-      state.filteredFilms = filteredFilms;
-      state.cardCount = filteredFilms.length < CARDS_PER_STEP ?
-        filteredFilms.length :
-        CARDS_PER_STEP;
+      state.filteredMovies = filteredMovies;
+      state.cardCount = filteredMovies.length < VISIBLE_CARDS_COUNT ?
+        filteredMovies.length :
+        VISIBLE_CARDS_COUNT;
     },
 
     increaseCardCount: (state) => {
-      state.cardCount = (state.cardCount + CARDS_PER_STEP) < state.filteredFilms.length ?
-        state.cardCount + CARDS_PER_STEP :
-        state.filteredFilms.length;
+      state.cardCount = (state.cardCount + VISIBLE_CARDS_COUNT) < state.filteredMovies.length ?
+        state.cardCount + VISIBLE_CARDS_COUNT :
+        state.filteredMovies.length;
     },
 
     resetCardCount: (state) => {
-      state.cardCount = state.filteredFilms.length < CARDS_PER_STEP ?
-        state.filteredFilms.length :
-        CARDS_PER_STEP;
+      state.cardCount = state.filteredMovies.length < VISIBLE_CARDS_COUNT ?
+        state.filteredMovies.length :
+        VISIBLE_CARDS_COUNT;
     },
 
     setFavoriteCount: (state, action) => {
@@ -64,9 +59,9 @@ export const mainData = createSlice({
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         const films = action.payload;
 
-        state.films = films;
-        state.filteredFilms = films;
-        state.cardCount = films.length < CARDS_PER_STEP ? films.length : 8;
+        state.movies = films;
+        state.filteredMovies = films;
+        state.cardCount = films.length < VISIBLE_CARDS_COUNT ? films.length : 8;
         state.isDataLoaded = false;
       })
       .addCase(fetchPromoAction.fulfilled, (state, action) => {
@@ -77,7 +72,7 @@ export const mainData = createSlice({
         state.isDataLoaded = true;
       })
       .addCase(fetchFavoriteFilmsAction.fulfilled, (state, action) => {
-        state.favoriteFilms = action.payload;
+        state.favoriteMovies = action.payload;
         state.favoriteCount = action.payload.length;
         state.isDataLoaded = false;
       })

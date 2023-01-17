@@ -1,17 +1,17 @@
 import React, {MutableRefObject, useEffect, useRef, useState} from 'react';
 import {Link, Navigate, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getFilm, getIsFilmFoundStatus, getIsFilmLoadingStatus} from '../../store/film-data/selectors';
+import {getMovie, getIsMovieFound, getIsMovieLoading} from '../../store/film-data/selectors';
 import Loading from '../loading/loading';
-import {fetchFilmByID} from '../../store/api-actions';
+import {fetchFilmByID} from '../../store/api-action';
 import {resetMainScreen} from '../../store/main-data/main-data';
 import FullScreenButton from '../../components/full-screen-button/full-screen-button';
 
 function Player(): JSX.Element{
   const id = Number(useParams().id);
-  const film = useAppSelector(getFilm);
-  const isFilmFoundStatus = useAppSelector(getIsFilmFoundStatus);
-  const isFilmLoadingStatus = useAppSelector(getIsFilmLoadingStatus);
+  const film = useAppSelector(getMovie);
+  const isFilmFoundStatus = useAppSelector(getIsMovieFound);
+  const isFilmLoadingStatus = useAppSelector(getIsMovieLoading);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

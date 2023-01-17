@@ -1,21 +1,21 @@
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAllGenres} from '../../utils/genre';
-import {MouseEvent, useState} from 'react';
-import {DEFAULT_GENRE} from '../../types/genres';
-import {getFilms} from '../../store/main-data/selectors';
-import {changeGenre} from '../../store/main-data/main-data';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAllGenres } from '../../utils/genre';
+import { MouseEvent, useState } from 'react';
+import { DEFAULT_GENRE } from '../../types/genres';
+import { getMovies } from '../../store/main-data/selectors';
+import { changeGenre } from '../../store/main-data/main-data';
 
 function GenresFilter(): JSX.Element {
   const [currentGenre, setCurrentGenre] = useState(DEFAULT_GENRE);
 
   const dispatch = useAppDispatch();
 
-  const films = useAppSelector(getFilms);
+  const films = useAppSelector(getMovies);
   const genres = getAllGenres(films);
 
   const handleChangeGenreClick = (evt: MouseEvent<HTMLAnchorElement>, genre: string) => {
     evt.preventDefault();
-    dispatch(changeGenre({currentGenre: genre}));
+    dispatch(changeGenre({ currentGenre: genre }));
     setCurrentGenre(genre);
   };
 

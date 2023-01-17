@@ -1,20 +1,18 @@
-import SmallFilmCard from '../small-film-card/small-film-card';
-import React from 'react';
-import {Film} from '../../types/film';
+import MovieCard from '../movie-card/movie-card';
+import { FC } from 'react';
+import { TMovie } from '../../types/TMovie';
 
-type CatalogProps = {
-  films: Film[];
+type Props = {
+  movieList: TMovie[];
 }
-function Catalog({ films }: CatalogProps): JSX.Element{
+const Catalog: FC<Props> = (props) => {
+  const { movieList } = props;
   return (
     <div className='catalog__films-list'>
-      {films.map((film) => (
-        <SmallFilmCard
-          key={film.id}
-          id={film.id}
-          title={film.name}
-          previewImage={film.previewImage}
-          videoUrl={film.previewVideoLink}
+      {movieList.map((movie) => (
+        <MovieCard
+          key={movie.id}
+          movie={movie}
         />))}
     </div>);
 }

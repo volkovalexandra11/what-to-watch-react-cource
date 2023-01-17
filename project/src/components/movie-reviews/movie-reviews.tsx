@@ -1,10 +1,13 @@
-import {Comment} from '../../types/comment';
+import { TComment } from '../../types/TComment';
+import { FC } from 'react';
 
-type ReviewsProps = {
-  reviews: Comment[]
+type Props = {
+  reviews: TComment[]
 }
 
-function FilmReviews({ reviews }: ReviewsProps): JSX.Element {
+const MovieReviews: FC<Props> = (props) => {
+  const { reviews } = props;
+
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -29,6 +32,6 @@ function FilmReviews({ reviews }: ReviewsProps): JSX.Element {
       </div>
     </div>
   );
-}
+};
 
-export default FilmReviews;
+export default MovieReviews;

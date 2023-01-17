@@ -6,9 +6,9 @@ import {mainData} from './main-data/main-data';
 import {filmData} from './film-data/film-data';
 import {appProcess} from './app-process/app-process';
 
-export const reducer = combineReducers({
+export const globalReducer = combineReducers({
   [NameSpace.MainScreen]: mainData.reducer,
-  [NameSpace.FilmScreen]: filmData.reducer,
+  [NameSpace.MovieScreen]: filmData.reducer,
   [NameSpace.User]: userProcess.reducer,
   [NameSpace.App]: appProcess.reducer
 });

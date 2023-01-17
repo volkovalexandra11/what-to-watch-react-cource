@@ -1,11 +1,11 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace, AuthorizationStatus} from '../../const';
-import {UserProcess} from '../../types/state';
-import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
-import {getAvatarURL, saveAvatarURL} from '../../services/avatar';
+import { createSlice } from '@reduxjs/toolkit';
+import { AuthStatus, NameSpace } from '../../const';
+import { UserProcess } from '../../types/state';
+import { checkAuthAction, loginAction, logoutAction } from '../api-action';
+import { getAvatarURL, saveAvatarURL } from '../../services/avatar-service';
 
 const initialState: UserProcess = {
-  authorizationStatus: AuthorizationStatus.Unknown,
+  authStatus: AuthStatus.Unknown,
   avatar: getAvatarURL(),
   userId: null
 };
@@ -17,24 +17,24 @@ export const userProcess = createSlice({
   extraReducers(builder) {
     builder
       .addCase(checkAuthAction.fulfilled, (state) => {
-        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.authStatus = AuthStatus.Auth;
       })
       .addCase(checkAuthAction.rejected, (state) => {
-        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.authStatus = AuthStatus.NoAuth;
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.avatar = action.payload.avatarUrl;
         saveAvatarURL(action.payload.avatarUrl);
         state.userId = action.payload.userId;
-        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.authStatus = AuthStatus.Auth;
       })
-      .addCase(loginAction.rejected, (state) => {
-        state.authorizationStatus = AuthorizationStatus.NoAuth;
-      })
-      .addCase(logoutAction.fulfilled, (state, action) => {
-        state.authorizationStatus = AuthorizationStatus.NoAuth;
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.authStatus = AuthStatus.NoAuth;
         state.avatar = null;
         state.userId = null;
+      })
+      .addCase(loginAction.rejected, (state) => {
+        state.authStatus = AuthStatus.NoAuth;
       });
   }
 });

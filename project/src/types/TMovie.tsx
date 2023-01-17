@@ -1,4 +1,4 @@
-export type Film ={
+export type TMovie ={
   id: number;
   name: string;
   posterImage: string;

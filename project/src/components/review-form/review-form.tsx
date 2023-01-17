@@ -1,13 +1,13 @@
-import React, {ChangeEvent, SyntheticEvent, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks';
-import {postComment} from '../../store/api-actions';
-import {UserComment} from '../../types/user-comment';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { postComment } from '../../store/api-action';
+import { TUserComment } from '../../types/t-user-comment';
 
-function ReviewForm(): JSX.Element{
+const ReviewForm = () => {
   const id = Number(useParams().id);
 
-  const [reviewData, setReviewData] = React.useState({
+  const [reviewData, setReviewData] = useState({
     rating: 0,
     review: ''
   });
@@ -16,32 +16,32 @@ function ReviewForm(): JSX.Element{
 
   const dispatch = useAppDispatch();
 
-  const reviewTextChangeHandler = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = evt.target;
+  const reviewTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setReviewData({ ...reviewData, [name]: value });
-    if (evt.target.value.length > 50 && evt.target.value.length < 400) {
+    if (e.target.value.length > 50 && e.target.value.length < 400) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
   };
 
-  const ratingChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = evt.target;
+  const ratingChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setReviewData({ ...reviewData, [name]: +value });
-    if (evt.target.value) {
+    if (e.target.value) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
   };
 
-  const submitHandler = (evt: SyntheticEvent) => {
-    evt.preventDefault();
-    onSubmit({comment: reviewData.review, rating: reviewData.rating, filmId: id.toString()});
+  const submitHandler = (e: SyntheticEvent) => {
+    e.preventDefault();
+    onSubmit({ comment: reviewData.review, rating: reviewData.rating, movieId: id.toString() });
   };
 
-  const onSubmit = (commentData: UserComment) => {
+  const onSubmit = (commentData: TUserComment) => {
     dispatch(postComment(commentData));
   };
 
@@ -93,6 +93,6 @@ function ReviewForm(): JSX.Element{
       </form>
     </div>
   );
-}
+};
 
 export default ReviewForm;

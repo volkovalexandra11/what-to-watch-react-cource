@@ -1,7 +1,7 @@
-import {useAppDispatch} from '../../hooks';
-import {increaseCardCount} from '../../store/main-data/main-data';
+import { useAppDispatch } from '../../hooks';
+import { increaseCardCount } from '../../store/main-data/main-data';
 
-function ShowMoreButton(): JSX.Element {
+const ShowMoreButton = () => {
   const dispatch = useAppDispatch();
 
   return (
@@ -9,14 +9,12 @@ function ShowMoreButton(): JSX.Element {
       <button
         className="catalog__button"
         type="button"
-        onClick={ (evt) => {
-          dispatch(increaseCardCount());
-        }}
+        onClick={(_) => {dispatch(increaseCardCount());}}
       >
         Show more
       </button>
     </div>
   );
-}
+};
 
 export default ShowMoreButton;

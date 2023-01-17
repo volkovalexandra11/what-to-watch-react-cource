@@ -1,4 +1,4 @@
-import {AuthorizationStatus} from '../const';
+import {AuthStatus} from '../const';
 
 export const isCheckedAuth = (authorizationStatus: string): boolean =>
-  authorizationStatus === AuthorizationStatus.Unknown;
+  authorizationStatus === AuthStatus.Unknown;

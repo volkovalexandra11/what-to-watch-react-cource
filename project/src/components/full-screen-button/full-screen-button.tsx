@@ -1,6 +1,6 @@
-import {checkFullScreen, CombinedElement, exitFullScreen, requestFullScreen} from '../../utils/full-screen-api';
+import { checkFullScreen, CombinedElement, exitFullScreen, requestFullScreen } from '../../utils/full-screen-api';
 
-function FullScreenButton(): JSX.Element {
+const FullScreenButton = () => {
   const element = document.querySelector('.player') as CombinedElement;
 
   const onFullScreenClick = async () => {
@@ -20,6 +20,6 @@ function FullScreenButton(): JSX.Element {
       <span>Full screen</span>
     </button>
   );
-}
+};
 
 export default FullScreenButton;

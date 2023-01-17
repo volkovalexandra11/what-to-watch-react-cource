@@ -1,4 +1,4 @@
-export enum AuthorizationStatus {
+export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -7,7 +7,7 @@ export enum AuthorizationStatus {
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum APIRoute {
-  Films = '/films',
+  Movies = '/films',
   Login = '/login',
   Logout = '/logout',
   Similar = '/similar',
@@ -16,11 +16,11 @@ export enum APIRoute {
   Favorite = '/favorite'
 }
 
-export const CARDS_PER_STEP = 8;
+export const VISIBLE_CARDS_COUNT = 8;
 
 export enum NameSpace {
   User = 'USER',
   MainScreen = 'MAIN',
-  FilmScreen = 'FILM',
+  MovieScreen = 'FILM',
   App ='APP'
 }

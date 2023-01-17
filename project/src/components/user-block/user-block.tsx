@@ -1,15 +1,15 @@
-import {Link} from 'react-router-dom';
-import {logoutAction} from '../../store/api-actions';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAuthorizationStatus, getAvatarUrl} from '../../store/user-process/selectors';
-import {AuthorizationStatus} from '../../const';
+import { Link } from 'react-router-dom';
+import { logoutAction } from '../../store/api-action';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAuthStatus, getAvatarUrl } from '../../store/user-process/selectors';
+import { AuthStatus } from '../../const';
 
-function UserBlock(): JSX.Element {
+const UserBlock = () => {
   const dispatch = useAppDispatch();
   const avatar = useAppSelector(getAvatarUrl);
-  const authStatus = useAppSelector(getAuthorizationStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
-  if (authStatus !== AuthorizationStatus.Auth) {
+  if (authStatus !== AuthStatus.Auth) {
     return (
       <ul className="user-block">
         <li className="user-block__item">
@@ -47,6 +47,6 @@ function UserBlock(): JSX.Element {
       </li>
     </ul>
   );
-}
+};
 
 export default UserBlock;

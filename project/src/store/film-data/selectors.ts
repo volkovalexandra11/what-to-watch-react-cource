@@ -1,11 +1,11 @@
 import {State} from '../../types/state';
 import {NameSpace} from '../../const';
-import {Film} from '../../types/film';
-import {Comment} from '../../types/comment';
+import {TMovie} from '../../types/TMovie';
+import {TComment} from '../../types/TComment';
 
-export const getFilm = (state: State): Film | null => state[NameSpace.FilmScreen].film;
-export const getSimilar = (state: State): Film[] => state[NameSpace.FilmScreen].similar;
-export const getComments = (state: State): Comment[] => state[NameSpace.FilmScreen].comments;
-export const getFilmPageTab = (state: State): string => state[NameSpace.FilmScreen].currentFilmTab;
-export const getIsFilmLoadingStatus = (state: State): boolean | null => state[NameSpace.FilmScreen].isFilmLoadingStatus;
-export const getIsFilmFoundStatus = (state: State): boolean | null => state[NameSpace.FilmScreen].isFilmFoundStatus;
+export const getMovie = (state: State): TMovie | null => state[NameSpace.MovieScreen].movie;
+export const getSimilar = (state: State): TMovie[] => state[NameSpace.MovieScreen].similar;
+export const getComments = (state: State): TComment[] => state[NameSpace.MovieScreen].comments;
+export const getMoviePageTab = (state: State): string => state[NameSpace.MovieScreen].currentMovieTab;
+export const getIsMovieLoading = (state: State): boolean | null => state[NameSpace.MovieScreen].isMovieLoading;
+export const getIsMovieFound = (state: State): boolean | null => state[NameSpace.MovieScreen].isMovieFound;

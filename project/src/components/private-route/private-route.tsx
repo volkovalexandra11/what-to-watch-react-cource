@@ -1,13 +1,18 @@
-import {Navigate} from 'react-router-dom';
-import {AuthorizationStatus} from '../../const';
+import { FC } from 'react';
+import { Navigate } from 'react-router-dom';
+import { AuthStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getAuthStatus } from '../../store/user-process/selectors';
 
-type PrivateRouteProps = {
-  authorizationStatus: string;
+type Props = {
   children: JSX.Element;
 };
 
-function PrivateRoute({authorizationStatus, children}: PrivateRouteProps): JSX.Element {
-  return authorizationStatus === AuthorizationStatus.Auth ? children : <Navigate to={'/login'} />;
-}
+const PrivateRoute : FC<Props> = (props) => {
+  const { children } = props;
+  const authStatus = useAppSelector(getAuthStatus);
+
+  return authStatus === AuthStatus.Auth ? children : <Navigate to={'/login'}/>;
+};
 
 export default PrivateRoute;

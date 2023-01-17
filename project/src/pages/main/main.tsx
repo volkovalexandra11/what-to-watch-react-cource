@@ -6,24 +6,24 @@ import Logo from '../../components/logo/logo';
 import GenresFilter from '../../components/genres-filter/genres-filter';
 import ShowMore from '../../components/show-more/show-more';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {AuthorizationStatus} from '../../const';
-import {fetchFavoriteFilmsAction} from '../../store/api-actions';
-import {getCardCount, getFilteredFilms, getPromo} from '../../store/main-data/selectors';
+import {getAuthStatus} from '../../store/user-process/selectors';
+import {AuthStatus} from '../../const';
+import {fetchFavoriteFilmsAction} from '../../store/api-action';
+import {getCardCount, getFilteredMovies, getPromo} from '../../store/main-data/selectors';
 import UserBlock from '../../components/user-block/user-block';
-import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons';
+import FilmCardButtons from '../../components/movie-card-buttons/movie-card-buttons';
 
 function Main(): JSX.Element{
   const promoMovie = useAppSelector(getPromo);
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(getAuthorizationStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
   useEffect(() => {
-    if (authStatus === AuthorizationStatus.Auth) {
+    if (authStatus === AuthStatus.Auth) {
       dispatch(fetchFavoriteFilmsAction());
     }
   }, [authStatus, dispatch]);
-  const films = useAppSelector(getFilteredFilms);
+  const films = useAppSelector(getFilteredMovies);
   const cardCount = useAppSelector(getCardCount);
 
   if (!promoMovie) {
@@ -59,7 +59,7 @@ function Main(): JSX.Element{
                 <span className='film-card__year'>{promoMovie.released}</span>
               </p>
 
-              <FilmCardButtons film={promoMovie} authStatus={authStatus}/>
+              <FilmCardButtons movie={promoMovie} authStatus={authStatus}/>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@ function Main(): JSX.Element{
         <section className='catalog'>
           <h2 className='catalog__title visually-hidden'>Catalog</h2>
           <GenresFilter/>
-          <Catalog films={films.slice(0, cardCount)}/>
+          <Catalog movieList={films.slice(0, cardCount)}/>
           {cardCount !== films.length && <ShowMore/>}
         </section>
 

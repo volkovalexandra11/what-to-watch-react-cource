@@ -3,22 +3,22 @@ import React, {useRef, useState} from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {AuthData} from '../../types/auth-data';
-import {loginAction} from '../../store/api-actions';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {TAuthData} from '../../types/t-auth-data';
+import {loginAction} from '../../store/api-action';
+import {getAuthStatus} from '../../store/user-process/selectors';
 import {Navigate} from 'react-router-dom';
-import {AuthorizationStatus} from '../../const';
+import {AuthStatus} from '../../const';
 import {resetMainScreen} from '../../store/main-data/main-data';
 
 function SignIn(): JSX.Element{
-  const authStatus = useAppSelector(getAuthorizationStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = (authData: AuthData) => {
+  const onSubmit = (authData: TAuthData) => {
     dispatch(resetMainScreen());
     dispatch(loginAction(authData));
   };
@@ -40,7 +40,7 @@ function SignIn(): JSX.Element{
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
 
-  if (authStatus === AuthorizationStatus.Auth) {
+  if (authStatus === AuthStatus.Auth) {
     return <Navigate to='/' />;
   }
 

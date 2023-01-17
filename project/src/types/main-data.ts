@@ -1,13 +1,13 @@
-import {Film} from './film';
+import {TMovie} from './TMovie';
 
 export type MainData = {
-  films: Film[],
-  promo: Film | null,
+  movies: TMovie[],
+  promo: TMovie | null,
   isDataLoaded: boolean,
   currentGenre: string,
-  filteredFilms: Film[],
+  filteredMovies: TMovie[],
   cardCount: number,
-  favoriteFilms: Film[],
+  favoriteMovies: TMovie[],
   favoriteCount: number
 };
 

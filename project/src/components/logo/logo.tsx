@@ -1,9 +1,10 @@
-import {Link} from 'react-router-dom';
-import {resetMainScreen} from '../../store/main-data/main-data';
-import {useAppDispatch} from '../../hooks';
+import { Link } from 'react-router-dom';
+import { resetMainScreen } from '../../store/main-data/main-data';
+import { useAppDispatch } from '../../hooks';
 
-function Logo(): JSX.Element {
+const Logo = () => {
   const dispatch = useAppDispatch();
+
   return (
     <div className='logo'>
       <Link
@@ -21,6 +22,6 @@ function Logo(): JSX.Element {
       </Link>
     </div>
   );
-}
+};
 
 export default Logo;

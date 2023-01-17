@@ -1,17 +1,20 @@
-import {useEffect, useRef} from 'react';
+import { FC, useEffect, useRef } from 'react';
 
-type PreviewPlayerProps = {
+const TIME_TO_PLAY_VIDEO = 1000;
+
+type Props = {
   image: string,
   previewVideo: string,
 };
 
-function PreviewPlayer ({image, previewVideo}: PreviewPlayerProps): JSX.Element {
+const SmallPlayer: FC<Props> = (props: Props) => {
+  const {image, previewVideo} = props
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     const delay: NodeJS.Timeout = setTimeout(
       () => videoRef.current?.play(),
-      1000);
+      TIME_TO_PLAY_VIDEO);
 
     return () => clearTimeout(delay);
   });
@@ -27,6 +30,6 @@ function PreviewPlayer ({image, previewVideo}: PreviewPlayerProps): JSX.Element 
       <source src={previewVideo} type="video/mp4" />
     </video>
   );
-}
+};
 
-export default PreviewPlayer;
+export default SmallPlayer;

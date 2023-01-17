@@ -4,15 +4,15 @@ import {Link, Navigate, useParams} from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import UserBlock from '../../components/user-block/user-block';
-import {getFilm} from '../../store/film-data/selectors';
-import {getLoadedDataStatus} from '../../store/main-data/selectors';
+import {getMovie} from '../../store/film-data/selectors';
+import {getIsDataLoaded} from '../../store/main-data/selectors';
 import Loading from '../loading/loading';
-import {fetchFilmByID} from '../../store/api-actions';
+import {fetchFilmByID} from '../../store/api-action';
 
 function AddReview(): JSX.Element{
   const id = Number(useParams().id);
-  const film = useAppSelector(getFilm);
-  const loadStatus = useAppSelector(getLoadedDataStatus);
+  const film = useAppSelector(getMovie);
+  const loadStatus = useAppSelector(getIsDataLoaded);
 
   const dispatch = useAppDispatch();
 
