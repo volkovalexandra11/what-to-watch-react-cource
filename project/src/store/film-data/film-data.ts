@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MovieTabs } from '../../types/movie-tabs';
 import { NameSpace } from '../../const';
-import { changeFilmStatusToView, fetchCommentsByID, fetchFilmByID, fetchSimilarByID } from '../api-action';
+import { changeMovieStatusToView, fetchCommentsByID, fetchMovieByID, fetchSimilarByID } from '../api-action';
 import { TMovieData } from '../../types/t-movie-data';
 
 const initialState: TMovieData = {
@@ -23,16 +23,16 @@ export const filmData = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchFilmByID.pending, (state) => {
+      .addCase(fetchMovieByID.pending, (state) => {
         state.isMovieLoading = true;
       })
-      .addCase(fetchFilmByID.fulfilled, (state, action) => {
+      .addCase(fetchMovieByID.fulfilled, (state, action) => {
         state.movie = action.payload;
 
         state.isMovieFound = true;
         state.isMovieLoading = false;
       })
-      .addCase(fetchFilmByID.rejected, (state, _) => {
+      .addCase(fetchMovieByID.rejected, (state, _) => {
         state.isMovieFound = false;
         state.isMovieFound = false;
       })
@@ -42,7 +42,7 @@ export const filmData = createSlice({
       .addCase(fetchCommentsByID.fulfilled, (state, action) => {
         state.comments = action.payload;
       })
-      .addCase(changeFilmStatusToView.fulfilled, (state, action) => {
+      .addCase(changeMovieStatusToView.fulfilled, (state, action) => {
         state.movie = action.payload;
       });
   }

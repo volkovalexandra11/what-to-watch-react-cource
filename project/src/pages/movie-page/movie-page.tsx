@@ -8,8 +8,8 @@ import MovieDescription from '../../components/movie-description/movie-descripti
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {
   fetchCommentsByID,
-  fetchFavoriteFilmsAction,
-  fetchFilmByID,
+  fetchFavoriteMoviesAction,
+  fetchMovieByID,
   fetchSimilarByID
 } from '../../store/api-action';
 import Loading from '../loading/loading';
@@ -31,11 +31,11 @@ function MoviePage(): JSX.Element{
 
   useEffect(() => {
     dispatch(changeFilmTab(MovieTabs.Overview));
-    dispatch(fetchFilmByID(id.toString()));
+    dispatch(fetchMovieByID(id.toString()));
     dispatch(fetchCommentsByID(id.toString()));
     dispatch(fetchSimilarByID(id.toString()));
     if (authStatus === AuthStatus.Auth) {
-      dispatch(fetchFavoriteFilmsAction());
+      dispatch(fetchFavoriteMoviesAction());
     }
   }, [id, dispatch, authStatus]);
 

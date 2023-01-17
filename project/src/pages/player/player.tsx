@@ -3,7 +3,7 @@ import {Link, Navigate, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getMovie, getIsMovieFound, getIsMovieLoading} from '../../store/film-data/selectors';
 import Loading from '../loading/loading';
-import {fetchFilmByID} from '../../store/api-action';
+import {fetchMovieByID} from '../../store/api-action';
 import {resetMainScreen} from '../../store/main-data/main-data';
 import FullScreenButton from '../../components/full-screen-button/full-screen-button';
 
@@ -29,7 +29,7 @@ function Player(): JSX.Element{
   };
 
   useEffect(() => {
-    dispatch(fetchFilmByID(id.toString()));
+    dispatch(fetchMovieByID(id.toString()));
   }, [id, dispatch]);
 
   if(player.current) {

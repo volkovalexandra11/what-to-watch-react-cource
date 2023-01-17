@@ -12,7 +12,7 @@ import { TUserComment } from '../types/t-user-comment';
 import { TMovieStatus } from '../types/t-movie-status';
 import { APIRoute } from '../const';
 
-export const fetchFilmsAction = createAsyncThunk<TMovie[], undefined, {
+export const fetchMoviesAction = createAsyncThunk<TMovie[], undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -61,7 +61,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchFilmByID = createAsyncThunk<TMovie | null, string, {
+export const fetchMovieByID = createAsyncThunk<TMovie | null, string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -111,7 +111,7 @@ export const postComment = createAsyncThunk<void, TUserComment, {
   },
 );
 
-export const changeFilmStatusToView = createAsyncThunk<TMovie, TMovieStatus, {
+export const changeMovieStatusToView = createAsyncThunk<TMovie, TMovieStatus, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -124,7 +124,7 @@ export const changeFilmStatusToView = createAsyncThunk<TMovie, TMovieStatus, {
   },
 );
 
-export const fetchFavoriteFilmsAction = createAsyncThunk<TMovie[], undefined, {
+export const fetchFavoriteMoviesAction = createAsyncThunk<TMovie[], undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

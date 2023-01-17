@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFavoriteMovies, getIsDataLoaded } from '../../store/main-data/selectors';
 import { getAuthStatus } from '../../store/user-process/selectors';
-import { fetchFavoriteFilmsAction } from '../../store/api-action';
+import { fetchFavoriteMoviesAction } from '../../store/api-action';
 import { AuthStatus } from '../../const';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
@@ -20,7 +20,7 @@ const MyList = () => {
 
   useEffect(() => {
     if (authStatus === AuthStatus.Auth) {
-      dispatch(fetchFavoriteFilmsAction());
+      dispatch(fetchFavoriteMoviesAction());
     }
   }, [authStatus, dispatch]);
 

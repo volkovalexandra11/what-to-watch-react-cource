@@ -8,7 +8,7 @@ import ShowMore from '../../components/show-more/show-more';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthStatus} from '../../store/user-process/selectors';
 import {AuthStatus} from '../../const';
-import {fetchFavoriteFilmsAction} from '../../store/api-action';
+import {fetchFavoriteMoviesAction} from '../../store/api-action';
 import {getCardCount, getFilteredMovies, getPromo} from '../../store/main-data/selectors';
 import UserBlock from '../../components/user-block/user-block';
 import FilmCardButtons from '../../components/movie-card-buttons/movie-card-buttons';
@@ -20,7 +20,7 @@ function Main(): JSX.Element{
 
   useEffect(() => {
     if (authStatus === AuthStatus.Auth) {
-      dispatch(fetchFavoriteFilmsAction());
+      dispatch(fetchFavoriteMoviesAction());
     }
   }, [authStatus, dispatch]);
   const films = useAppSelector(getFilteredMovies);

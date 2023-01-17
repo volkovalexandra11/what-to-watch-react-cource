@@ -7,7 +7,7 @@ import UserBlock from '../../components/user-block/user-block';
 import {getMovie} from '../../store/film-data/selectors';
 import {getIsDataLoaded} from '../../store/main-data/selectors';
 import Loading from '../loading/loading';
-import {fetchFilmByID} from '../../store/api-action';
+import {fetchMovieByID} from '../../store/api-action';
 
 function AddReview(): JSX.Element{
   const id = Number(useParams().id);
@@ -17,7 +17,7 @@ function AddReview(): JSX.Element{
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFilmByID(id.toString()));
+    dispatch(fetchMovieByID(id.toString()));
   }, [id, dispatch]);
 
   if (loadStatus) {

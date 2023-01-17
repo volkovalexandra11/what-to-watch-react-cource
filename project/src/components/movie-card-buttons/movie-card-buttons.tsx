@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AuthStatus } from '../../const';
 import { TMovie } from '../../types/TMovie';
 import { TMovieStatus } from '../../types/t-movie-status';
-import { changeFilmStatusToView } from '../../store/api-action';
+import { changeMovieStatusToView } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFavoriteCount } from '../../store/main-data/selectors';
 import { FC } from 'react';
@@ -23,7 +23,7 @@ const MovieCardButtons: FC<Props> = (props) => {
       status: movie?.isFavorite ? 0 : 1
     };
 
-    dispatch(changeFilmStatusToView(movieStatus));
+    dispatch(changeMovieStatusToView(movieStatus));
   };
 
   return (

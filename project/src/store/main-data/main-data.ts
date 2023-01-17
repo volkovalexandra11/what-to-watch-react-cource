@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { VISIBLE_CARDS_COUNT, NameSpace } from '../../const';
-import { changeFilmStatusToView, fetchFavoriteFilmsAction, fetchFilmsAction, fetchPromoAction } from '../api-action';
+import { changeMovieStatusToView, fetchFavoriteMoviesAction, fetchMoviesAction, fetchPromoAction } from '../api-action';
 import { MainData } from '../../types/main-data';
 import { DEFAULT_GENRE } from '../../types/genres';
 import { filterFilmsByGenre } from '../../utils/genre';
@@ -53,10 +53,10 @@ export const mainData = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchFilmsAction.pending, (state) => {
+      .addCase(fetchMoviesAction.pending, (state) => {
         state.isDataLoaded = true;
       })
-      .addCase(fetchFilmsAction.fulfilled, (state, action) => {
+      .addCase(fetchMoviesAction.fulfilled, (state, action) => {
         const films = action.payload;
 
         state.movies = films;
@@ -68,15 +68,15 @@ export const mainData = createSlice({
         state.promo = action.payload;
       })
 
-      .addCase(fetchFavoriteFilmsAction.pending, (state) => {
+      .addCase(fetchFavoriteMoviesAction.pending, (state) => {
         state.isDataLoaded = true;
       })
-      .addCase(fetchFavoriteFilmsAction.fulfilled, (state, action) => {
+      .addCase(fetchFavoriteMoviesAction.fulfilled, (state, action) => {
         state.favoriteMovies = action.payload;
         state.favoriteCount = action.payload.length;
         state.isDataLoaded = false;
       })
-      .addCase(changeFilmStatusToView.fulfilled, (state, action) => {
+      .addCase(changeMovieStatusToView.fulfilled, (state, action) => {
         if (action.payload.isFavorite) {
           state.favoriteCount = state.favoriteCount + 1;
         } else {

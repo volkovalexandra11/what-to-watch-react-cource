@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {checkAuthAction, fetchFilmsAction, fetchPromoAction} from './store/api-action';
+import {checkAuthAction, fetchMoviesAction, fetchPromoAction} from './store/api-action';
 import Error from './components/error/error';
 
-store.dispatch(fetchFilmsAction());
+store.dispatch(fetchMoviesAction());
 store.dispatch(checkAuthAction());
 store.dispatch(fetchPromoAction());
 
